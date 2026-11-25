@@ -1,0 +1,1255 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Petualangan Membaca</title>
+<style>
+:root{
+  --hijau:#58cc02;--hijau-tua:#58a700;--biru:#1cb0f6;--biru-tua:#1899d6;--kuning:#ffc800;--kuning-tua:#e5a900;
+  --merah:#ff4b4b;--merah-tua:#ea2b2b;--abu:#e5e5e5;--abu-tua:#cfcfcf;
+  --bg:#ffffff;--kartu:#ffffff;--garis:#e5e5e5;--teks:#3c3c3c;--teks2:#777;--pastel1:#fff7c2;--pastel2:#ffd9e8;--pastel3:#d6f0ff;--pastel4:#dcf8c6;
+  --b-benar-bg:#d7ffb8;--b-benar-tx:#4a8f00;--b-salah-bg:#ffdfe0;--b-salah-tx:#d12f2f;--b-info-bg:#fff3c4;--b-info-tx:#8a6500;
+  --font:"Nunito","Varela Round","Baloo 2",ui-rounded,"SF Pro Rounded","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+}
+:root{--tempel-tx:#3c3c3c;--chip-bg:rgba(255,255,255,.65);color-scheme:light}
+/* Tema gelap: dipilih lewat tombol (data-tema), lewat tema host (data-theme), atau mengikuti sistem */
+:root[data-tema="gelap"],:root[data-theme="dark"]:not([data-tema="terang"]){
+  --bg:#131f24;--kartu:#1f2c33;--garis:#37464f;--teks:#f1f7fb;--teks2:#a5b3bb;--abu:#37464f;--abu-tua:#27343b;
+  --pastel1:#5b5320;--pastel2:#5e2f43;--pastel3:#1f4a62;--pastel4:#2f5a1f;
+  --b-benar-bg:#203a12;--b-benar-tx:#8be04a;--b-salah-bg:#4a1f22;--b-salah-tx:#ff8a8a;--b-info-bg:#463a12;--b-info-tx:#ffd966;
+  --tempel-tx:#f1f7fb;--chip-bg:rgba(0,0,0,.3);color-scheme:dark;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]):not([data-tema="terang"]){
+    --bg:#131f24;--kartu:#1f2c33;--garis:#37464f;--teks:#f1f7fb;--teks2:#a5b3bb;--abu:#37464f;--abu-tua:#27343b;
+    --pastel1:#5b5320;--pastel2:#5e2f43;--pastel3:#1f4a62;--pastel4:#2f5a1f;
+    --b-benar-bg:#203a12;--b-benar-tx:#8be04a;--b-salah-bg:#4a1f22;--b-salah-tx:#ff8a8a;--b-info-bg:#463a12;--b-info-tx:#ffd966;
+    --tempel-tx:#f1f7fb;--chip-bg:rgba(0,0,0,.3);color-scheme:dark;
+  }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--teks);font-family:var(--font);font-weight:700}
+body{min-height:100dvh}
+#app{max-width:640px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column}
+button{font-family:inherit;font-weight:800;cursor:pointer}
+button:disabled{cursor:not-allowed}
+h1,h2,h3{margin:.2em 0}
+.btn{border:0;border-radius:16px;padding:14px 22px;font-size:1rem;letter-spacing:.04em;text-transform:uppercase;color:#fff;border-bottom:5px solid;transition:transform .05s,border-bottom-width .05s;min-height:52px}
+.btn:active:not(:disabled){transform:translateY(3px);border-bottom-width:2px}
+.btn.hijau{background:var(--hijau);border-color:var(--hijau-tua)}
+.btn.biru{background:var(--biru);border-color:var(--biru-tua)}
+.btn.kuning{background:var(--kuning);border-color:var(--kuning-tua);color:#4b3a00}
+.btn.merah{background:var(--merah);border-color:var(--merah-tua)}
+.btn.abu{background:var(--kartu);color:var(--teks2);border:2px solid var(--garis);border-bottom-width:5px}
+.btn:disabled{background:var(--abu);border-color:var(--abu-tua);color:#9a9a9a}
+.btn.besar{width:100%;font-size:1.1rem;padding:16px}
+.btn.kecil{padding:10px 14px;min-height:44px;font-size:.85rem}
+.speaker{border:0;background:var(--biru);color:#fff;border-radius:50%;width:56px;height:56px;font-size:1.5rem;border-bottom:4px solid var(--biru-tua)}
+.speaker.mini{width:38px;height:38px;font-size:1rem;flex:none}
+.ikon-btn{border:2px solid var(--garis);background:var(--kartu);color:var(--teks);border-radius:14px;min-width:44px;height:44px;font-size:1.2rem}
+
+/* sampul */
+.sampul{padding:18px 20px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;flex:1}
+.bar-atas{display:flex;justify-content:flex-end;gap:8px;width:100%}
+.maskot-besar{width:170px;height:185px}
+.sampul h1{font-size:2.1rem;color:var(--hijau);line-height:1.1}
+.sub{color:var(--teks2);font-size:1.05rem;margin:0 0 6px}
+.sampul label{align-self:flex-start;font-size:.9rem;color:var(--teks2)}
+.sampul input{width:100%;font:inherit;font-size:1.2rem;padding:14px;border-radius:16px;border:2px solid var(--garis);background:var(--kartu);color:var(--teks);outline:none;font-weight:800}
+.sampul input:focus{border-color:var(--biru)}
+.goyang{animation:goyang .4s}
+@keyframes goyang{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.catatan{font-size:.78rem;color:var(--teks2);font-weight:700;text-align:left;background:var(--kartu);border:2px dashed var(--garis);border-radius:14px;padding:10px 12px;width:100%}
+.catatan b{color:var(--teks)}
+
+/* maskot */
+.owl{width:100%;height:100%;overflow:visible}
+.owl-bicara .mulut{transform-origin:60px 80px;animation:bicara .35s infinite alternate}
+@keyframes bicara{from{transform:scaleY(.2)}to{transform:scaleY(1)}}
+.owl-menang,.owl-senang{animation:lompat 1s infinite}
+@keyframes lompat{50%{transform:translateY(-6px)}}
+.owl-sedih{animation:lemas 2s infinite}
+@keyframes lemas{50%{transform:translateY(2px) scale(.99)}}
+
+/* pemantik */
+.pemantik{padding:16px 20px 28px;display:flex;flex-direction:column;gap:14px;flex:1}
+.cerita-kartu{background:var(--kartu);border:2px solid var(--garis);border-radius:22px;padding:18px;text-align:center}
+.ilustrasi{font-size:3.6rem;line-height:1}
+.teks-cerita{font-size:2rem;line-height:1.7;margin:10px 0}
+.teks-cerita .kt{display:inline-block;padding:0 6px;border-radius:10px;cursor:pointer;transition:background .15s,transform .15s}
+.teks-cerita .kt.sorot{background:var(--kuning);color:#4b3a00;transform:scale(1.12)}
+.teks-cerita .baris-kal{display:block}
+.kecil-info{font-size:.82rem;color:var(--teks2);font-weight:700}
+
+/* kuis */
+.kuis{display:flex;flex-direction:column;min-height:100dvh}
+.kuis-atas{display:flex;align-items:center;gap:12px;padding:14px 16px}
+.x{background:none;border:0;font-size:1.6rem;color:var(--teks2);width:40px;height:40px}
+.bar{flex:1;height:16px;background:var(--abu);border-radius:10px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--hijau);border-radius:10px;transition:width .4s;position:relative}
+.bar i::after{content:"";position:absolute;left:8px;right:8px;top:4px;height:4px;background:rgba(255,255,255,.35);border-radius:4px}
+.xp{font-size:.95rem;color:var(--kuning-tua);white-space:nowrap}
+.kuis-isi{flex:1;padding:6px 18px 16px;display:flex;flex-direction:column;gap:14px}
+.maskot-baris{display:flex;align-items:center;gap:10px}
+#maskotBox{width:84px;height:92px;flex:none}
+.gelembung{position:relative;background:var(--kartu);border:2px solid var(--garis);border-radius:18px;padding:12px 14px;font-size:1.05rem;display:flex;gap:8px;align-items:center;flex:1}
+.gelembung::before{content:"";position:absolute;left:-10px;top:50%;width:16px;height:16px;background:var(--kartu);border-left:2px solid var(--garis);border-bottom:2px solid var(--garis);transform:translateY(-50%) rotate(45deg)}
+.bacaan{background:var(--pastel3);border-radius:16px;padding:12px 14px;font-size:1.25rem;line-height:1.6;display:flex;gap:8px;align-items:flex-start;justify-content:space-between}
+.tampil{text-align:center;font-size:4rem;line-height:1.2;padding:6px}
+.tampil.teks{font-size:2.4rem;font-weight:900}
+.tampil.kal{font-size:1.5rem;line-height:1.6}
+.tampil .rumus{font-size:2.4rem;font-weight:900;color:var(--biru)}
+.tampil svg{width:1.1em;height:1.1em;vertical-align:middle}
+.opsi{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opsi.kolom{grid-template-columns:1fr}
+.opsi-btn{background:var(--kartu);color:var(--teks);border:2px solid var(--garis);border-bottom-width:5px;border-radius:16px;padding:14px 10px;font-size:1.3rem;min-height:68px;display:flex;align-items:center;justify-content:center;text-align:center}
+.opsi.besar .opsi-btn{font-size:2.6rem;font-weight:900;min-height:86px}
+.opsi.kata .opsi-btn{font-size:1.8rem;font-weight:900}
+.opsi.gambar .opsi-btn{font-size:3rem}
+.opsi.gambar .opsi-btn svg{width:1em;height:1em}
+.opsi-btn.dipilih{border-color:var(--biru);background:rgba(28,176,246,.15);color:var(--biru-tua)}
+.opsi-btn.benar{border-color:var(--hijau);background:var(--b-benar-bg);color:var(--b-benar-tx)}
+.opsi-btn.salah{border-color:var(--merah);background:var(--b-salah-bg);color:var(--b-salah-tx)}
+.slot{min-height:76px;border-top:2px solid var(--garis);border-bottom:2px solid var(--garis);padding:10px 0;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center}
+.slot.benar .ubin{background:var(--b-benar-bg);border-color:var(--hijau)}
+.slot.salah .ubin{background:var(--b-salah-bg);border-color:var(--merah)}
+.bank{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;min-height:64px}
+.ubin{background:var(--kartu);color:var(--teks);border:2px solid var(--garis);border-bottom-width:5px;border-radius:14px;padding:10px 16px;font-size:1.6rem;font-weight:900;min-width:52px}
+.ubin.kosong{background:var(--abu);color:transparent;border-color:var(--abu);cursor:default}
+.mic-kartu{background:var(--kartu);border:2px solid var(--garis);border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.mic-btn{border:0;border-radius:50px;padding:14px 26px;font-size:1.1rem;color:#fff;background:var(--biru);border-bottom:5px solid var(--biru-tua);min-height:56px}
+.mic-btn.aktif{background:var(--merah);border-color:var(--merah-tua)}
+.status-mic{font-size:1rem;color:var(--teks2);min-height:1.4em;text-align:center}
+.gelombang{display:none;gap:5px;height:34px;align-items:center}
+.gelombang.on{display:flex}
+.gelombang i{width:7px;border-radius:5px;background:var(--merah);height:10px;animation:gel .8s infinite ease-in-out}
+.gelombang i:nth-child(2){animation-delay:.1s}.gelombang i:nth-child(3){animation-delay:.2s}.gelombang i:nth-child(4){animation-delay:.3s}.gelombang i:nth-child(5){animation-delay:.4s}
+@keyframes gel{50%{height:32px}}
+.panel-hasil{width:100%;background:var(--bg);border:2px solid var(--garis);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px;font-size:1rem}
+.panel-hasil .baris b{color:var(--teks2);margin-right:4px}
+.kata-warna{font-size:1.5rem;line-height:1.9}
+.kw{display:inline-block;margin:0 4px;padding:0 8px;border-radius:10px;font-weight:900}
+.kw small{display:block;font-size:.65rem;font-weight:700}
+.kw.ok{background:var(--b-benar-bg);color:var(--b-benar-tx)}
+.kw.no{background:var(--b-salah-bg);color:var(--b-salah-tx)}
+.kw.miss{color:#9a9a9a;text-decoration:line-through;background:var(--abu)}
+.kw.tambah{color:#9a9a9a;font-style:italic}
+.status{display:inline-block;padding:2px 10px;border-radius:10px;font-weight:900;color:#fff}
+.status.benar{background:var(--hijau)}.status.belum{background:var(--merah)}
+.ketik{width:100%;display:flex;flex-direction:column;gap:6px;font-size:.9rem;color:var(--teks2)}
+.ketik-baris{display:flex;gap:8px}
+.ketik input{flex:1;font:inherit;font-size:1.1rem;padding:10px;border-radius:12px;border:2px solid var(--garis);background:var(--bg);color:var(--teks);min-width:0}
+details.info-suara{width:100%;font-size:.78rem;color:var(--teks2);font-weight:700}
+details.info-suara summary{cursor:pointer}
+.kuis-bawah{position:sticky;bottom:0;border-top:2px solid var(--garis);background:var(--bg);padding:12px 16px calc(14px + env(safe-area-inset-bottom))}
+.aksi-baris{display:flex;gap:10px;flex-wrap:wrap}
+.aksi-baris .btn{flex:1;min-width:120px}
+.banner{border-radius:18px;padding:12px 14px;margin:-2px 0 10px;display:flex;flex-direction:column;gap:2px}
+.banner.benar{background:var(--b-benar-bg);color:var(--b-benar-tx)}
+.banner.salah{background:var(--b-salah-bg);color:var(--b-salah-tx)}
+.banner.info{background:var(--b-info-bg);color:var(--b-info-tx)}
+.banner .judul{font-size:1.25rem;font-weight:900}
+.banner .teks{font-size:.95rem}
+
+/* hasil asesmen / sesi */
+.hasil{padding:18px 20px 30px;display:flex;flex-direction:column;gap:14px;flex:1;align-items:center;text-align:center}
+.hasil .maskot-besar{width:150px;height:165px}
+.kem-baris{display:grid;grid-template-columns:1fr 1.2fr 52px;gap:10px;align-items:center;text-align:left;width:100%;font-size:.95rem}
+.bar-h{height:14px;background:var(--abu);border-radius:10px;overflow:hidden}
+.bar-h i{display:block;height:100%;border-radius:10px;background:var(--hijau)}
+.bar-h i.no{background:var(--kuning)}
+.kartu{background:var(--kartu);border:2px solid var(--garis);border-radius:20px;padding:14px;width:100%}
+.level-kartu{background:var(--hijau);color:#fff;border-radius:20px;padding:14px;width:100%;border-bottom:6px solid var(--hijau-tua)}
+.level-kartu .besar{font-size:1.6rem;font-weight:900}
+.bintang{font-size:2.2rem;letter-spacing:6px;color:var(--kuning)}
+.bintang .mati{color:var(--abu-tua)}
+.tombol-kolom{display:flex;flex-direction:column;gap:10px;width:100%}
+
+/* peta */
+.peta-atas{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:2px solid var(--garis);padding:10px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.peta-atas .nama{font-weight:900;flex:1;min-width:90px}
+.stat{padding:6px 10px;border-radius:12px;background:var(--kartu);border:2px solid var(--garis);font-size:.9rem}
+.jalur{display:flex;flex-direction:column;align-items:center;padding:20px 10px 40px}
+.node-baris{display:flex;flex-direction:column;align-items:center;transform:translateX(var(--g));margin:14px 0;position:relative}
+.node{width:84px;height:78px;border-radius:50%;border:0;font-size:2rem;color:#fff;background:var(--abu-tua);border-bottom:8px solid #b5b5b5;position:relative}
+.node.selesai{background:var(--hijau);border-color:var(--hijau-tua)}
+.node.sekarang{background:var(--biru);border-color:var(--biru-tua);animation:denyut 1.4s infinite}
+.node.terbuka{background:var(--kuning);border-color:var(--kuning-tua)}
+.node.kunci{background:var(--abu);border-color:var(--abu-tua);color:#9a9a9a}
+@keyframes denyut{0%{box-shadow:0 0 0 0 rgba(28,176,246,.6)}70%{box-shadow:0 0 0 20px rgba(28,176,246,0)}100%{box-shadow:0 0 0 0 rgba(28,176,246,0)}}
+.node-label{margin-top:8px;text-align:center;font-size:.95rem;max-width:190px}
+.node-label small{display:block;color:var(--teks2);font-weight:700}
+.mulai-balon{position:absolute;top:-30px;background:var(--kartu);border:2px solid var(--garis);color:var(--biru-tua);border-radius:12px;padding:2px 10px;font-size:.8rem;font-weight:900;animation:naik 1s infinite alternate}
+@keyframes naik{to{transform:translateY(-4px)}}
+.bintang-kecil{color:var(--kuning);letter-spacing:2px}
+.bintang-kecil .mati{color:var(--abu-tua)}
+.modal-lapis{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--bg);color:var(--teks);width:100%;max-width:640px;border-radius:24px 24px 0 0;padding:20px 20px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px;animation:naikSheet .2s}
+@keyframes naikSheet{from{transform:translateY(40px);opacity:.5}}
+.sheet.tengah{border-radius:24px;margin:auto 16px}
+#konfeti{position:fixed;inset:0;pointer-events:none;z-index:99}
+
+/* laporan */
+.laporan{padding:16px 16px 36px;display:flex;flex-direction:column;gap:18px}
+.tempel{position:relative;padding:20px 16px 16px;border-radius:4px;box-shadow:0 6px 12px rgba(0,0,0,.18);color:var(--tempel-tx);font-weight:800}
+.tempel::before{content:"";position:absolute;top:-11px;left:50%;width:84px;height:22px;transform:translateX(-50%) rotate(-2deg);background:rgba(255,255,255,.55);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.tempel.k1{background:var(--pastel1);transform:rotate(-1.2deg)}
+.tempel.k2{background:var(--pastel2);transform:rotate(1deg)}
+.tempel.k3{background:var(--pastel3);transform:rotate(-.8deg)}
+.tempel.k4{background:var(--pastel4);transform:rotate(1.1deg)}
+.tempel h3{font-size:1.15rem}
+.tempel .nilai{font-size:1.8rem;font-weight:900}
+.chip{display:inline-block;margin:3px;padding:4px 10px;border-radius:12px;background:var(--chip-bg);color:var(--tempel-tx);font-size:.9rem}
+table.uji{width:100%;border-collapse:collapse;font-size:.85rem}
+table.uji td,table.uji th{border-bottom:1px solid var(--garis);padding:6px;text-align:left;vertical-align:top}
+.lulus{color:var(--hijau-tua);font-weight:900}.gagal{color:var(--merah-tua);font-weight:900}
+.uji-halaman{padding:16px;display:flex;flex-direction:column;gap:12px}
+code{font-size:.75rem;word-break:break-all}
+@media (min-width:700px){.opsi-btn{font-size:1.5rem}}
+</style>
+
+<div id="app"></div>
+<div id="modal"></div>
+<canvas id="konfeti"></canvas>
+
+<!-- ============================================================================
+  SKRIP 1 — LOGIKA MURNI (tanpa DOM): konfigurasi, penilaian suara, penentuan level.
+  Dipisah supaya bisa diuji tanpa mikrofon (lihat halaman #uji).
+
+  KETERBATASAN PENILAIAN SUARA (juga ditampilkan di layar):
+  - SpeechRecognition hanya MENGUBAH SUARA MENJADI TEKS. Penilaian di sini mengukur kecocokan
+    huruf, kata, dan urutan kata — BUKAN kualitas pelafalan secara menyeluruh (intonasi, aksen, dll).
+  - Mikrofon butuh browser Chrome (atau turunannya) dan HTTPS atau localhost (file lokal biasanya juga bisa).
+    Di Chrome, audio diproses oleh layanan pengenalan suara peramban sehingga butuh internet.
+============================================================================= -->
+<script id="logika">
+/* ============ KONFIGURASI (semua pengaturan ada di sini) ============ */
+const KONFIG = {
+  KKM: 80,                    // ambang tuntas (persen)
+  AMBANG_MIRIP: 0.8,          // kemiripan Levenshtein minimal agar KATA diterima
+  AMBANG_SALAH_EJA: 0.5,      // di bawah ini dianggap "diganti kata lain", di atasnya "salah eja"
+  BAHASA: 'id-ID',
+  WAKTU_MIC_DETIK: 10,        // batas waktu mendengarkan
+  MAKS_ALTERNATIF: 5,         // maxAlternatives SpeechRecognition
+  RATE_SUARA: 0.85,           // kecepatan SpeechSynthesis
+  GAGAL_MIC_MAKS: 2,          // setelah sekian kegagalan teknis, tampilkan kolom ketik
+  PERCOBAAN_SEBELUM_LANJUT: 2,// setelah sekian kali belum sesuai, muncul "Lanjut (tanpa poin)"
+  MAKS_REMEDIAL: 6,
+  XP_BENAR: 10,
+  XP_LEVEL: 20,
+  KUNCI_SIMPAN: 'petualanganMembaca.v1'
+};
+
+/* Peta bunyi nama huruf bahasa Indonesia (objek yang bisa diedit).
+   Pengenal suara sering menulis nama huruf sebagai "be", "bi", "ce", dst. */
+const PETA_BUNYI_HURUF = {
+  a:['a','ah','aa'], b:['be','bi','b','bee'], c:['ce','se','c','si'], d:['de','di','d','dee'],
+  e:['e','ee','eh'], f:['ef','ep','f','ev'], g:['ge','gi','g','ghe'], h:['ha','hah','h','ah'],
+  i:['i','ii','ie'], j:['je','ji','j'], k:['ka','ke','k','kah'], l:['el','l','le','al'],
+  m:['em','m','eem'], n:['en','n','in'], o:['o','oh','oo'], p:['pe','pi','p','pee'],
+  q:['ki','qi','ku','q','kiu','kyu'], r:['er','r','ar'], s:['es','s','as'], t:['te','ti','t','tee'],
+  u:['u','uu','you'], v:['ve','fe','v','vi'], w:['we','w','wi'], x:['eks','ex','x','iks'],
+  y:['ye','y','yi'], z:['zet','zed','z','zat']
+};
+/* Ucapan nama huruf untuk suara contoh (SpeechSynthesis) */
+const NAMA_HURUF = {a:'a',b:'be',c:'ce',d:'de',e:'e',f:'ef',g:'ge',h:'ha',i:'i',j:'je',k:'ka',l:'el',m:'em',n:'en',o:'o',p:'pe',q:'ki',r:'er',s:'es',t:'te',u:'u',v:'ve',w:'we',x:'eks',y:'ye',z:'zet'};
+const URUTAN_KEMAMPUAN = ['huruf','suku','kata','kalimat'];
+
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* Normalisasi: huruf kecil, hapus aksen & tanda baca, rapikan spasi */
+function normalisasi(s){
+  return String(s==null?'':s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^\p{L}\p{N}\s]/gu,' ').replace(/\s+/g,' ').trim();
+}
+function levenshtein(a,b){
+  const m=a.length,n=b.length; if(!m) return n; if(!n) return m;
+  let prev=Array.from({length:n+1},(_,j)=>j);
+  for(let i=1;i<=m;i++){
+    const cur=[i];
+    for(let j=1;j<=n;j++) cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));
+    prev=cur;
+  }
+  return prev[n];
+}
+function kemiripan(a,b){
+  if(!a.length&&!b.length) return 1;
+  return Math.round((1-levenshtein(a,b)/Math.max(a.length,b.length))*10000)/10000;
+}
+function statusKata(x,y){
+  if(x===y) return 'BENAR';
+  return kemiripan(x,y)>=KONFIG.AMBANG_SALAH_EJA ? 'SALAH EJA' : 'DIGANTI KATA LAIN';
+}
+
+/* Penyelarasan kata demi kata (edit distance tingkat kata) untuk kalimat.
+   Biaya: sama=0, mirip(salah eja)=0.5, ganti=1, lewat/tambah=1. */
+function selaraskan(T,H){
+  const n=T.length,m=H.length;
+  const biaya=(x,y)=>x===y?0:(kemiripan(x,y)>=KONFIG.AMBANG_SALAH_EJA?0.5:1);
+  const d=Array.from({length:n+1},()=>Array(m+1).fill(0));
+  for(let i=0;i<=n;i++) d[i][0]=i;
+  for(let j=0;j<=m;j++) d[0][j]=j;
+  for(let i=1;i<=n;i++) for(let j=1;j<=m;j++)
+    d[i][j]=Math.min(d[i-1][j-1]+biaya(T[i-1],H[j-1]), d[i-1][j]+1, d[i][j-1]+1);
+  const out=[]; let i=n,j=m;
+  while(i>0||j>0){
+    if(i>0&&j>0&&d[i][j]===d[i-1][j-1]+biaya(T[i-1],H[j-1])){
+      out.push({target:T[i-1],terdengar:H[j-1],status:statusKata(T[i-1],H[j-1])}); i--; j--;
+    } else if(i>0&&d[i][j]===d[i-1][j]+1){
+      out.push({target:T[i-1],terdengar:'',status:'TERLEWAT'}); i--;
+    } else {
+      out.push({target:'',terdengar:H[j-1],status:'TAMBAHAN'}); j--;
+    }
+  }
+  return out.reverse();
+}
+
+/* Menilai satu alternatif transkrip (sudah dinormalisasi) terhadap target (sudah dinormalisasi) */
+function nilaiSatu(t,a,tipe){
+  if(tipe==='huruf'){
+    const rapat=a.replace(/ /g,'');
+    const peta=(PETA_BUNYI_HURUF[t]||[]).map(normalisasi);
+    const ok=a===t||rapat===t||peta.includes(a)||peta.includes(rapat);
+    return {benar:ok,skor:ok?100:0,terdengar:a,rinci:[{target:t,terdengar:a,status:ok?'BENAR':'SALAH'}]};
+  }
+  if(tipe==='suku'){            // suku kata: harus sama persis
+    const ok=a===t||a.replace(/ /g,'')===t;
+    return {benar:ok,skor:ok?100:0,terdengar:a,rinci:[{target:t,terdengar:a,status:ok?'BENAR':'SALAH'}]};
+  }
+  if(tipe==='kata'){            // kata: kemiripan Levenshtein >= AMBANG_MIRIP
+    const kandidat=[a,a.replace(/ /g,''),...a.split(' ')];
+    let best=kandidat[0],bs=-1;
+    for(const k of kandidat){const s=kemiripan(t,k); if(s>bs){bs=s;best=k;}}
+    const ok=bs>=KONFIG.AMBANG_MIRIP;
+    return {benar:ok,skor:Math.round(bs*100),terdengar:best,
+      rinci:[{target:t,terdengar:best,status:ok?'BENAR':statusKata(t,best)}]};
+  }
+  // kalimat: selaraskan per kata
+  const T=t.split(' ').filter(Boolean),H=a.split(' ').filter(Boolean);
+  const rinci=selaraskan(T,H);
+  const b=rinci.filter(r=>r.status==='BENAR').length;
+  return {benar:b*100>=KONFIG.KKM*T.length,skor:Math.round(100*b/T.length),terdengar:a,rinci};
+}
+
+/* evaluate(target, alternatif[], tipe) -> {benar, skor, rinci[], terdengar} atau {teknis:true}
+   Semua alternatif dinilai, diambil yang terbaik. Transkrip kosong = kegagalan teknis (bukan salah baca). */
+function evaluate(target,alternatif,tipe){
+  const t=normalisasi(target);
+  const alts=(Array.isArray(alternatif)?alternatif:[alternatif]).map(normalisasi).filter(Boolean);
+  if(!alts.length) return {teknis:true,alasan:'Transkrip kosong'};
+  let best=null;
+  for(const a of alts){
+    const r=nilaiSatu(t,a,tipe);
+    if(!best||r.skor>best.skor||(r.skor===best.skor&&r.benar&&!best.benar)) best=r;
+  }
+  best.target=t; best.tipe=tipe;
+  return best;
+}
+
+/* ---- Perhitungan nilai & level ---- */
+function lulus(b,t){return t>0&&b*100>=KONFIG.KKM*t;}
+function bintangDari(b,t){ if(t>0&&b*100>=90*t) return 3; return lulus(b,t)?2:1; }
+function hitungKemampuan(hasil){      // hasil: [{kemampuan, ok(true/false/null=dilewati)}]
+  const out={};
+  for(const k of URUTAN_KEMAMPUAN){
+    const s=hasil.filter(h=>h.kemampuan===k&&h.ok!==null);   // soal yang dilewati tidak dihitung
+    const b=s.filter(h=>h.ok===true).length;
+    out[k]={b,t:s.length,persen:s.length?Math.round(100*b/s.length):null,lulus:lulus(b,s.length)};
+  }
+  return out;
+}
+/* Level = kemampuan pertama di bawah KKM; jika semua tuntas -> level 4.
+   Kemampuan tanpa butir terhitung (semua dilewati) dianggap belum terbukti -> belum tuntas. */
+function tentukanLevel(kem){
+  for(let i=0;i<4;i++) if(!kem[URUTAN_KEMAMPUAN[i]].lulus) return i+1;
+  return 4;
+}
+
+/* ---- Kasus uji (dipakai halaman #uji dan pengujian otomatis) ---- */
+const KASUS_UJI=[
+  {nama:'bola ← "bola" → benar',jalan:()=>evaluate('bola',['bola'],'kata'),cek:r=>r.benar===true&&r.skor===100},
+  {nama:'bola ← "Bola." → benar',jalan:()=>evaluate('bola',['Bola.'],'kata'),cek:r=>r.benar===true},
+  {nama:'bola ← "bulu" → salah',jalan:()=>evaluate('bola',['bulu'],'kata'),cek:r=>r.benar===false},
+  {nama:'bulu ← "bola" → salah',jalan:()=>evaluate('bulu',['bola'],'kata'),cek:r=>r.benar===false},
+  {nama:'b ← "be" → benar',jalan:()=>evaluate('b',['be'],'huruf'),cek:r=>r.benar===true},
+  {nama:'d ← "be" → salah',jalan:()=>evaluate('d',['be'],'huruf'),cek:r=>r.benar===false},
+  {nama:'q ← "ki" → benar',jalan:()=>evaluate('q',['ki'],'huruf'),cek:r=>r.benar===true},
+  {nama:'ba ← "ba" → benar; ba ← "bi" → salah',jalan:()=>[evaluate('ba',['ba'],'suku'),evaluate('ba',['bi'],'suku')],cek:r=>r[0].benar===true&&r[1].benar===false},
+  {nama:'alternatif terbaik diambil (bola ← [bulu, bola])',jalan:()=>evaluate('bola',['bulu','bola'],'kata'),cek:r=>r.benar===true},
+  {nama:'"Budi membaca buku" ← "budi membaca buku" → benar 100%',jalan:()=>evaluate('Budi membaca buku',['budi membaca buku'],'kalimat'),cek:r=>r.benar===true&&r.skor===100},
+  {nama:'… ← "budi buku" → salah, "membaca" TERLEWAT',jalan:()=>evaluate('Budi membaca buku',['budi buku'],'kalimat'),
+    cek:r=>r.benar===false&&r.rinci.some(x=>x.target==='membaca'&&x.status==='TERLEWAT')},
+  {nama:'… ← "budi makan buku" → salah, "membaca" DIGANTI KATA LAIN',jalan:()=>evaluate('Budi membaca buku',['budi makan buku'],'kalimat'),
+    cek:r=>r.benar===false&&r.rinci.some(x=>x.target==='membaca'&&x.status==='DIGANTI KATA LAIN')},
+  {nama:'… ← "budi membaka buku" → "membaca" SALAH EJA',jalan:()=>evaluate('Budi membaca buku',['budi membaka buku'],'kalimat'),
+    cek:r=>r.rinci.some(x=>x.target==='membaca'&&x.status==='SALAH EJA')},
+  {nama:'hasil kosong → kegagalan teknis',jalan:()=>[evaluate('bola',[],'kata'),evaluate('bola',['','  '],'kata'),evaluate('bola',[''],'huruf')],cek:r=>r.every(x=>x.teknis===true)},
+  {nama:'level: huruf 100, suku 50 → level 2',jalan:()=>tentukanLevel(hitungKemampuan([
+      {kemampuan:'huruf',ok:true},{kemampuan:'huruf',ok:true},{kemampuan:'suku',ok:true},{kemampuan:'suku',ok:false},
+      {kemampuan:'kata',ok:true},{kemampuan:'kalimat',ok:true}])),cek:r=>r===2},
+  {nama:'level: semua tuntas → level 4; satu salah dari 3 butir tidak menjatuhkan jika ≥KKM tidak terpenuhi → level 1',
+    jalan:()=>[tentukanLevel(hitungKemampuan(URUTAN_KEMAMPUAN.map(k=>({kemampuan:k,ok:true})))),
+      tentukanLevel(hitungKemampuan([{kemampuan:'huruf',ok:true},{kemampuan:'huruf',ok:true},{kemampuan:'huruf',ok:false}]))],
+    cek:r=>r[0]===4&&r[1]===1},
+  {nama:'soal dilewati tidak dihitung salah',jalan:()=>hitungKemampuan([{kemampuan:'huruf',ok:true},{kemampuan:'huruf',ok:null}]).huruf,cek:r=>r.t===1&&r.persen===100&&r.lulus===true}
+];
+function jalankanUji(){
+  return KASUS_UJI.map(k=>{
+    let ok=false,ket='';
+    try{const r=k.jalan();ok=!!k.cek(r);ket=JSON.stringify(r);}catch(e){ket='ERROR '+e.message;}
+    return {nama:k.nama,lulus:ok,ket};
+  });
+}
+</script>
+
+<script id="ui">
+/* ============================================================================
+   SKRIP 2 — ANTARMUKA, SUARA, SOAL, PETA, LAPORAN
+============================================================================= */
+const $=(s,r=document)=>r.querySelector(s);
+const acak=a=>{const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;};
+const satu=a=>a[Math.floor(Math.random()*a.length)];
+const app=$('#app');
+
+/* ---------- Penyimpanan (localStorage, selalu dalam try/catch) ---------- */
+let D;
+function baruData(){return {nama:'',asesmen:null,levelAwal:null,selesai:{},evalAkhir:null,xp:0,streak:{terakhir:'',jumlah:0},riwayat:{},sesi:[],benar:0,total:0,tema:null,bunyi:true};}
+const Simpan={
+  muat(){try{const j=localStorage.getItem(KONFIG.KUNCI_SIMPAN);D=Object.assign(baruData(),j?JSON.parse(j):{});}catch(e){D=baruData();}},
+  simpan(){try{localStorage.setItem(KONFIG.KUNCI_SIMPAN,JSON.stringify(D));}catch(e){}},
+  hapus(){try{localStorage.removeItem(KONFIG.KUNCI_SIMPAN);}catch(e){}D=baruData();}
+};
+function tglStr(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function perbaruiStreak(){
+  const h=tglStr(new Date()),s=D.streak; if(s.terakhir===h) return;
+  const k=new Date(); k.setDate(k.getDate()-1);
+  s.jumlah=(s.terakhir===tglStr(k))?s.jumlah+1:1; s.terakhir=h;
+}
+
+/* ---------- Status global ---------- */
+const G={layar:'',Q:null,I:null,sisaRemedial:null};
+const LEVEL={
+  1:{nama:'Mengenal Huruf',ikon:'🔤',desk:'Mengenal huruf, membedakan b–d dan p–q, huruf besar dan kecil.'},
+  2:{nama:'Membaca Suku Kata',ikon:'🧩',desk:'Mendengar, menggabung, dan membaca suku kata seperti ba-bi-bu-be-bo.'},
+  3:{nama:'Membaca Kata',ikon:'📖',desk:'Mencocokkan gambar dan kata, menyusun huruf, dan membaca kata.'},
+  4:{nama:'Membaca Kalimat',ikon:'📚',desk:'Menyusun dan membaca kalimat, membaca cerita pendek, menjawab pertanyaan.'},
+  5:{nama:'Evaluasi Akhir',ikon:'🏆',desk:'8 soal campuran: 2 soal dari tiap level.'}
+};
+const KEM_NAMA={huruf:'Mengenal huruf',suku:'Membaca suku kata',kata:'Membaca kata',kalimat:'Membaca kalimat'};
+const PUJIAN=['Hebat! Kamu benar!','Keren sekali!','Mantap! Terus ya!','Pintar sekali!','Bagus! Kamu hebat!'];
+
+/* ---------- Efek suara (WebAudio) ---------- */
+const Bunyi={ctx:null,
+  buka(){try{if(!this.ctx){const AC=window.AudioContext||window.webkitAudioContext;if(AC)this.ctx=new AC();}if(this.ctx&&this.ctx.state==='suspended')this.ctx.resume();}catch(e){}},
+  nada(f,t0,dur,tipe,vol){if(!this.ctx)return;const o=this.ctx.createOscillator(),g=this.ctx.createGain(),t=this.ctx.currentTime+t0;
+    o.type=tipe||'sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol||.16,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    o.connect(g);g.connect(this.ctx.destination);o.start(t);o.stop(t+dur+.05);},
+  main(j){ if(D&&D.bunyi===false)return; this.buka(); if(!this.ctx)return;
+    if(j==='benar'){this.nada(660,0,.15,'triangle');this.nada(880,.12,.25,'triangle');}
+    else if(j==='salah'){this.nada(220,0,.25,'sawtooth',.1);this.nada(165,.18,.3,'sawtooth',.1);}
+    else if(j==='menang'){[523,659,784,1047,784,1047].forEach((f,i)=>this.nada(f,i*.13,.25,'triangle'));}
+    else if(j==='klik'){this.nada(520,0,.06,'square',.05);}
+  }
+};
+
+/* ---------- Suara contoh (SpeechSynthesis) ----------
+   Perbaikan: daftar suara dimuat async (voiceschanged), suara Indonesia dipilih jika ada,
+   utterance disimpan agar tidak di-garbage-collect (bug Chrome), cancel() diberi jeda singkat,
+   dan ada batas waktu cadangan bila event onend tidak pernah datang. */
+const Suara={
+  didukung:'speechSynthesis' in window&&'SpeechSynthesisUtterance' in window,
+  voice:null,siap:false,token:0,ref:[],
+  muat(){
+    if(!this.didukung)return;
+    const pilih=()=>{const v=speechSynthesis.getVoices();if(!v.length)return;this.siap=true;
+      this.voice=v.find(x=>/^id([-_]|$)/i.test(x.lang))||v.find(x=>/indones/i.test(x.name))||null;};
+    pilih();
+    try{speechSynthesis.addEventListener('voiceschanged',pilih);}catch(e){speechSynthesis.onvoiceschanged=pilih;}
+    setTimeout(pilih,400);setTimeout(pilih,1500);
+  },
+  catatan(){
+    if(!this.didukung)return 'Perangkat ini tidak punya fitur suara contoh (SpeechSynthesis).';
+    if(this.siap&&!this.voice)return 'Suara bahasa Indonesia belum ditemukan di perangkat ini, jadi suara bawaan dipakai. Pasang suara Indonesia di pengaturan Text-to-Speech agar lebih jelas.';
+    return '';
+  },
+  henti(){this.token++;if(this.didukung){try{speechSynthesis.cancel();}catch(e){}}},
+  satu(teks){
+    return new Promise(res=>{
+      if(!this.didukung){setTimeout(res,500+teks.length*70);return;}
+      const u=new SpeechSynthesisUtterance(teks);
+      u.lang=KONFIG.BAHASA;u.rate=KONFIG.RATE_SUARA;u.pitch=1.05;
+      if(this.voice){u.voice=this.voice;u.lang=this.voice.lang;}
+      let mulai=false,selesai=false,t1,t2;
+      const akhir=()=>{if(selesai)return;selesai=true;clearTimeout(t1);clearTimeout(t2);this.ref=this.ref.filter(x=>x!==u);res();};
+      u.onstart=()=>{mulai=true;};u.onend=akhir;u.onerror=akhir;
+      t1=setTimeout(()=>{if(!mulai)akhir();},1800);           // suara tak pernah mulai -> lanjut
+      t2=setTimeout(akhir,3000+teks.length*160);               // jaga-jaga bila onend tidak datang
+      this.ref.push(u);
+      try{speechSynthesis.resume();speechSynthesis.speak(u);}catch(e){akhir();}
+    });
+  },
+  ucap(teks){                          // hentikan audio sebelumnya, lalu ucapkan
+    this.henti();const tok=this.token;
+    return new Promise(res=>setTimeout(()=>{if(tok!==this.token)return res();this.satu(teks).then(res);},90));
+  },
+  async urut(daftar,onItem){           // ucapkan berurutan (dipakai sorot kata & cerita)
+    this.henti();const tok=this.token;await new Promise(r=>setTimeout(r,90));
+    for(let i=0;i<daftar.length;i++){
+      if(tok!==this.token)return false;
+      if(onItem)onItem(i);
+      await this.satu(daftar[i]);
+    }
+    if(tok===this.token&&onItem)onItem(-1);
+    return true;
+  }
+};
+
+/* ---------- Pengenalan suara (SpeechRecognition) ---------- */
+const Mic={
+  rec:null,aktif:false,timer:null,
+  dikt:null,modeDiktat:false,abaikan:false,
+  /* didukung = browser punya SpeechRecognition ATAU ada dikte Claude (saat dibuka sebagai artifact di Chrome).
+     Sebelumnya mikrofon disembunyikan bila konteks tidak aman; sekarang tetap dicoba dan diagnosanya ditampilkan. */
+  didukung(){return !!(window.SpeechRecognition||window.webkitSpeechRecognition)||!!this.dikt;},
+  /* Di dalam bingkai artifact, mikrofon browser diblokir; di sana pakai dikte Claude bila tersedia. */
+  pakaiDiktat(){
+    let bingkai=false;try{bingkai=window.top!==window.self;}catch(e){bingkai=true;}
+    const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    return !!this.dikt&&(!SR||bingkai||window.isSecureContext===false);
+  },
+  /* Penjelasan jujur kenapa mikrofon mungkin tidak jalan di halaman ini */
+  diagnosa(){
+    const p=location.protocol,h=location.hostname,lokal=h==='localhost'||h==='127.0.0.1'||h==='[::1]';
+    const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(this.pakaiDiktat())return {ok:true,info:'Memakai dikte Claude. Izinkan mikrofon saat diminta.'};
+    if(!SR)return {ok:false,info:'Browser ini tidak punya pengenal suara. Pakai Chrome di Android atau komputer (Chrome di iPhone dan Safari tidak bisa).'};
+    if(p==='https:'||lokal)return {ok:true,info:''};
+    if(p==='file:')return {ok:'?',info:'Halaman dibuka sebagai file lokal. Chrome sering menolak mikrofon untuk file lokal. Buka lewat localhost atau hosting HTTPS.'};
+    return {ok:false,info:'Halaman dibuka lewat "'+p+'". Mikrofon hanya jalan di HTTPS atau localhost.'};
+  },
+  mulaiDiktat(cb){
+    const d=this.dikt;let teks='',parsial='',selesai=false;const un=[];this.aktif=true;this.modeDiktat=true;this.abaikan=false;
+    const akhir=reason=>{
+      if(selesai)return;selesai=true;un.forEach(f=>{try{f();}catch(e){}});
+      setTimeout(()=>{                                   // beri waktu kata terakhir sampai ke onFinal
+        this.aktif=false;this.modeDiktat=false;if(this.abaikan)return;
+        let alt=teks.trim()?[teks.trim()]:(parsial?[parsial]:[]);
+        const peta={not_granted:'not-allowed',dismissed:'not-allowed',unavailable:'unsupported',rate_limited:'busy',upstream_error:'network'};
+        cb.onSelesai({alternatif:alt,error:alt.length?null:(peta[reason]||null)});
+      },250);
+    };
+    try{
+      un.push(d.onPartial(e=>{parsial=e.text||parsial;cb.onInterim&&cb.onInterim(e.text||'');}));
+      un.push(d.onFinal(e=>{teks+=e.text||'';}));
+      un.push(d.onState(e=>{if(e.state==='listening'&&cb.onMulai)cb.onMulai();if(e.state==='idle')akhir(e.reason);}));
+      d.start({language:KONFIG.BAHASA}).catch(err=>{akhir((err&&err.code)||'upstream_error');});   // start() harus dipanggil langsung dari klik
+    }catch(e){akhir('upstream_error');}
+  },
+  mulai(cb){
+    const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(this.aktif)return;
+    if(this.pakaiDiktat())return this.mulaiDiktat(cb);
+    if(!SR){cb.onSelesai({alternatif:[],error:'unsupported'});return;}
+    let r;try{r=new SR();}catch(e){cb.onSelesai({alternatif:[],error:'audio-capture'});return;}
+    this.rec=r;this.aktif=true;
+    r.lang=KONFIG.BAHASA;r.interimResults=true;r.maxAlternatives=KONFIG.MAKS_ALTERNATIF;r.continuous=false;
+    let finalAlt=[],interim='',err=null,selesai=false;
+    this.timer=setTimeout(()=>{try{r.stop();}catch(e){}},KONFIG.WAKTU_MIC_DETIK*1000);   // batas 10 detik
+    r.onstart=()=>cb.onMulai&&cb.onMulai();
+    r.onresult=e=>{
+      for(let i=e.resultIndex;i<e.results.length;i++){
+        const h=e.results[i];
+        if(h.isFinal){for(let j=0;j<h.length;j++)finalAlt.push(h[j].transcript);}
+        else{interim=h[0].transcript;cb.onInterim&&cb.onInterim(interim);}
+      }
+    };
+    r.onerror=e=>{err=e.error;};
+    r.onend=()=>{
+      clearTimeout(this.timer);this.aktif=false;if(selesai)return;selesai=true;
+      let alt=finalAlt.slice();if(!alt.length&&interim)alt=[interim];
+      cb.onSelesai({alternatif:alt,error:alt.length?null:err});
+    };
+    try{r.start();}catch(e){clearTimeout(this.timer);this.aktif=false;selesai=true;cb.onSelesai({alternatif:[],error:'busy'});}
+  },
+  henti(){if(this.modeDiktat){try{this.dikt.stop().catch(()=>{});}catch(e){}return;}try{this.rec&&this.rec.stop();}catch(e){}},   // berhenti -> hasil tetap diproses
+  batal(){clearTimeout(this.timer);if(this.modeDiktat){this.abaikan=true;try{this.dikt.stop().catch(()=>{});}catch(e){}this.aktif=false;return;}if(this.rec){this.rec.onend=this.rec.onresult=this.rec.onerror=null;try{this.rec.abort();}catch(e){}}this.aktif=false;}
+};
+/* Kegagalan TEKNIS (bukan salah baca) -> pesan ramah, tidak dihitung salah */
+const PESAN_TEKNIS={
+  'no-speech':'Tidak ada suara yang terdengar. Dekatkan mikrofon lalu coba lagi.',
+  'not-allowed':'Izin mikrofon ditolak. Izinkan mikrofon di pengaturan browser.',
+  'service-not-allowed':'Izin mikrofon ditolak. Izinkan mikrofon di pengaturan browser.',
+  'network':'Jaringan bermasalah. Pengenalan suara butuh internet.',
+  'audio-capture':'Mikrofon tidak ditemukan atau sedang dipakai aplikasi lain.',
+  'busy':'Mikrofon sedang sibuk. Tunggu sebentar lalu coba lagi.',
+  'language-not-supported':'Bahasa Indonesia belum didukung pengenal suara di perangkat ini.',
+  'unsupported':'Browser ini belum mendukung mikrofon.',
+  'empty':'Suara belum berhasil diubah menjadi teks. Coba lagi ya.'
+};
+
+/* ---------- Konfeti ---------- */
+function konfeti(){
+  const c=$('#konfeti');c.width=innerWidth;c.height=innerHeight;const x=c.getContext('2d');
+  const w=['#58cc02','#1cb0f6','#ffc800','#ff4b4b','#ff86d0','#a560e8'];
+  const p=Array.from({length:130},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*.6,r:4+Math.random()*6,vy:2+Math.random()*4,vx:-2+Math.random()*4,a:Math.random()*6,va:-.2+Math.random()*.4,c:satu(w)}));
+  let t=0;(function f(){x.clearRect(0,0,c.width,c.height);
+    p.forEach(q=>{q.x+=q.vx;q.y+=q.vy;q.a+=q.va;x.save();x.translate(q.x,q.y);x.rotate(q.a);x.fillStyle=q.c;x.fillRect(-q.r,-q.r/2,q.r*2,q.r);x.restore();});
+    if(++t<200)requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height);})();
+}
+
+/* ---------- Maskot burung hantu (SVG) ---------- */
+function maskot(eks){
+  const senang=eks==='senang'||eks==='menang',naik=eks==='menang',sedih=eks==='sedih';
+  let s=`<svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg" class="owl owl-${eks}" aria-hidden="true">`;
+  const wy=naik?52:80;
+  s+=`<ellipse cx="16" cy="${wy}" rx="12" ry="26" fill="#46a302" transform="rotate(${naik?-28:10} 16 ${wy})"/>`;
+  s+=`<ellipse cx="104" cy="${wy}" rx="12" ry="26" fill="#46a302" transform="rotate(${naik?28:-10} 104 ${wy})"/>`;
+  s+=`<path d="M20 40 L28 8 L54 28 Z" fill="#58cc02"/><path d="M100 40 L92 8 L66 28 Z" fill="#58cc02"/>`;
+  s+=`<ellipse cx="60" cy="76" rx="44" ry="48" fill="#58cc02"/><ellipse cx="60" cy="92" rx="29" ry="31" fill="#d7ffb8"/>`;
+  s+=`<path d="M46 86 q4 4 8 0 M62 86 q4 4 8 0 M54 100 q4 4 8 0" stroke="#9ad66a" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
+  if(senang){
+    s+=`<path d="M30 60 Q44 42 58 60" stroke="#2b2b2b" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M62 60 Q76 42 90 60" stroke="#2b2b2b" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+    s+=`<circle cx="30" cy="72" r="6" fill="#ff9fb0" opacity=".8"/><circle cx="90" cy="72" r="6" fill="#ff9fb0" opacity=".8"/>`;
+  }else{
+    const py=sedih?63:58;
+    s+=`<circle cx="44" cy="58" r="17" fill="#fff"/><circle cx="76" cy="58" r="17" fill="#fff"/>`;
+    s+=`<circle cx="${sedih?46:45}" cy="${py}" r="8" fill="#2b2b2b"/><circle cx="${sedih?74:75}" cy="${py}" r="8" fill="#2b2b2b"/>`;
+    s+=`<circle cx="${sedih?48:47}" cy="${py-3}" r="2.6" fill="#fff"/><circle cx="${sedih?76:77}" cy="${py-3}" r="2.6" fill="#fff"/>`;
+  }
+  if(sedih){
+    s+=`<path d="M28 44 L56 36" stroke="#2b2b2b" stroke-width="4" stroke-linecap="round"/><path d="M92 44 L64 36" stroke="#2b2b2b" stroke-width="4" stroke-linecap="round"/>`;
+    s+=`<path d="M34 76 q-5 9 0 13 q5 -4 0 -13z" fill="#1cb0f6"/>`;
+  }
+  s+=`<path d="M50 70 Q60 63 70 70 L60 84 Z" fill="#ffc800"/>`;
+  if(eks==='bicara')s+=`<path class="mulut" d="M52 80 Q60 94 68 80 Z" fill="#ff9600"/>`;
+  if(senang)s+=`<path d="M52 82 Q60 92 68 82 Z" fill="#ff9600"/>`;
+  if(naik){
+    s+=`<path d="M38 22 L44 6 L52 18 L60 2 L68 18 L76 6 L82 22 Z" fill="#ffc800" stroke="#e5a900" stroke-width="2"/>`;
+    s+=`<text x="2" y="24" font-size="16">✨</text><text x="98" y="24" font-size="16">✨</text>`;
+  }
+  s+=`<ellipse cx="46" cy="124" rx="12" ry="5" fill="#ff9600"/><ellipse cx="74" cy="124" rx="12" ry="5" fill="#ff9600"/></svg>`;
+  return s;
+}
+
+/* ---------- Gambar sederhana untuk kata ---------- */
+const MEJA='<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="18" width="52" height="9" rx="3" fill="#c98a4b"/><rect x="12" y="27" width="6" height="28" fill="#a86b32"/><rect x="46" y="27" width="6" height="28" fill="#a86b32"/></svg>';
+const KATA=[
+  {k:'bola',g:'⚽',mirip:['dola','pola']},{k:'buku',g:'📕',mirip:['duku','puku']},
+  {k:'meja',g:MEJA,mirip:['neja','meka']},{k:'mata',g:'👁️',mirip:['nata','mara']},
+  {k:'padi',g:'🌾',mirip:['badi','pabi']},{k:'sapi',g:'🐄',mirip:['sabi','sapu']}
+];
+const KAL=[
+  {t:'Budi membaca buku',g:'👦📕'},{t:'Sapi makan padi',g:'🐄🌾'},{t:'Budi bawa bola',g:'👦⚽'},
+  {t:'Ani minum susu',g:'👧🥛'},{t:'Ibu masak nasi',g:'👩🍚'},{t:'Ini bola Budi',g:'⚽👦'}
+];
+const CERITA=[
+  {judul:'Bola Budi',teks:'Budi punya bola biru. Budi bermain di taman. Budi senang.',tanya:[
+    {q:'Apa warna bola Budi?',o:['biru','merah','kuning'],j:'biru'},
+    {q:'Di mana Budi bermain?',o:['taman','sekolah','pasar'],j:'taman'},
+    {q:'Bagaimana perasaan Budi?',o:['senang','sedih','marah'],j:'senang'}]},
+  {judul:'Sapi Ani',teks:'Ani punya sapi. Sapi makan padi. Sapi Ani gemuk.',tanya:[
+    {q:'Siapa yang punya sapi?',o:['Ani','Budi','Ibu'],j:'Ani'},
+    {q:'Sapi makan apa?',o:['padi','buku','bola'],j:'padi'},
+    {q:'Sapi Ani seperti apa?',o:['gemuk','biru','kecil'],j:'gemuk'}]}
+];
+const HURUF='abcdefghijklmnopqrstuvwxyz'.split('');
+const HURUF_MUDAH='abcdefghklmnoprstu'.split('');
+const KONS=['b','m','s','k','t','p','d','l'],VOKAL=['a','i','u','e','o'];
+const MIRIP_HURUF={b:'d',d:'b',p:'q',q:'p',m:'n',n:'m'};
+
+/* ---------- Pembuat soal ----------
+   jenis: 'pilih' (pilih jawaban) | 'susun' (susun ubin) | 'baca' (mikrofon)
+   kemampuan: huruf | suku | kata | kalimat; kunci/label dipakai untuk laporan. */
+const opsiTeks=a=>a.map(x=>({v:x,t:esc(x)}));
+function pilih(o){return Object.assign({jenis:'pilih',auto:false,kelas:'',tampil:'',kelasTampil:''},o);}
+function sk_dengarHuruf(h){
+  const lain=acak(HURUF.filter(x=>x!==h)).slice(0,3);
+  return pilih({kemampuan:'huruf',aktivitas:'Pilih huruf yang didengar',petunjuk:'Dengarkan, lalu pilih huruf yang kamu dengar.',suara:NAMA_HURUF[h],auto:true,opsi:opsiTeks([h,...lain]),jawab:h,jawabTeks:h,kelas:'besar',kunci:'Huruf '+h,label:'Huruf '+h});
+}
+function sk_bd(h){return pilih({kemampuan:'huruf',aktivitas:'b atau d',petunjuk:'Dengarkan. Huruf mana yang kamu dengar?',suara:NAMA_HURUF[h],auto:true,opsi:opsiTeks(['b','d']),jawab:h,jawabTeks:h,kelas:'besar',kunci:'Huruf '+h,label:'Huruf '+h});}
+function sk_pq(h){return pilih({kemampuan:'huruf',aktivitas:'p atau q',petunjuk:'Dengarkan. Huruf mana yang kamu dengar?',suara:NAMA_HURUF[h],auto:true,opsi:opsiTeks(['p','q']),jawab:h,jawabTeks:h,kelas:'besar',kunci:'Huruf '+h,label:'Huruf '+h});}
+function sk_besarKecil(h){
+  const kecil=Math.random()<.5,lain=acak(HURUF.filter(x=>x!==h&&x!==MIRIP_HURUF[h])).slice(0,2);
+  const set=[h,...lain];if(MIRIP_HURUF[h])set.push(MIRIP_HURUF[h]);
+  const f=x=>kecil?x:x.toUpperCase(),jw=f(h);
+  return pilih({kemampuan:'huruf',aktivitas:'Huruf besar dan kecil',petunjuk:kecil?'Pilih huruf kecil untuk huruf besar ini.':'Pilih huruf besar untuk huruf kecil ini.',suara:NAMA_HURUF[h],
+    tampil:esc(kecil?h.toUpperCase():h),kelasTampil:'teks',opsi:opsiTeks(set.map(f)),jawab:jw,jawabTeks:jw,kelas:'besar',kunci:'Huruf '+h,label:'Huruf '+h});
+}
+function sk_micHuruf(h){return {jenis:'baca',kemampuan:'huruf',aktivitas:'Sebutkan huruf',petunjuk:'Sebutkan nama huruf ini dengan suara keras!',suara:NAMA_HURUF[h],target:h,evalTipe:'huruf',tampil:esc(h),kelasTampil:'teks',tampilTarget:h+'  (dibaca "'+NAMA_HURUF[h]+'")',kunci:'Huruf '+h,label:'Huruf '+h};}
+function sk_dengarSuku(c,v){
+  const s=c+v,lain=acak(VOKAL.filter(x=>x!==v)).slice(0,3).map(x=>c+x);
+  return pilih({kemampuan:'suku',aktivitas:'Pilih suku kata yang didengar',petunjuk:'Dengarkan, lalu pilih suku kata yang kamu dengar.',suara:s,auto:true,opsi:opsiTeks([s,...lain]),jawab:s,jawabTeks:s,kelas:'besar',kunci:'Suku kata '+s,label:'Suku kata '+s});
+}
+function sk_gabung(c,v){
+  const s=c+v,vl=satu(VOKAL.filter(x=>x!==v)),kl=satu(KONS.filter(x=>x!==c));
+  const set=[...new Set([s,v+c,c+vl,kl+v])];
+  return pilih({kemampuan:'suku',aktivitas:'Gabung huruf',petunjuk:'Gabungkan dua huruf menjadi suku kata.',suara:s,
+    tampil:`<span class="rumus">${c.toUpperCase()} + ${v.toUpperCase()} = ?</span>`,opsi:opsiTeks(set),jawab:s,jawabTeks:s,kelas:'besar',kunci:'Suku kata '+s,label:'Suku kata '+s});
+}
+function sk_pola(c,hilang){
+  const seq=VOKAL.map(v=>c+v),jw=seq[hilang],c2=c==='b'?'m':'b';
+  const set=[...new Set([jw,c2+VOKAL[hilang],VOKAL[hilang]+c,c2+VOKAL[(hilang+1)%5]])];
+  return pilih({kemampuan:'suku',aktivitas:'Pola suku kata',petunjuk:'Lengkapi pola suku kata yang hilang.',suara:jw,
+    tampil:esc(seq.map((x,i)=>i===hilang?'?':x).join(' - ')),kelasTampil:'teks',opsi:opsiTeks(set),jawab:jw,jawabTeks:jw,kelas:'besar',kunci:'Suku kata '+jw,label:'Suku kata '+jw});
+}
+function sk_susunSuku(c,v){
+  const ekstra=satu(HURUF_MUDAH.filter(x=>x!==c&&x!==v));
+  return {jenis:'susun',kemampuan:'suku',aktivitas:'Susun huruf jadi suku kata',petunjuk:'Susun huruf menjadi suku kata yang kamu dengar.',suara:c+v,auto:true,
+    ubin:[c,v,ekstra],pemisah:'',jawab:c+v,jawabTeks:c+v,tampil:'',kunci:'Suku kata '+c+v,label:'Suku kata '+c+v};
+}
+function sk_micSuku(c,v){const s=c+v;return {jenis:'baca',kemampuan:'suku',aktivitas:'Baca suku kata',petunjuk:'Bacalah suku kata ini dengan suara keras!',suara:s,target:s,evalTipe:'suku',tampil:esc(s),kelasTampil:'teks',tampilTarget:s,kunci:'Suku kata '+s,label:'Suku kata '+s};}
+function sk_gambarKata(w){
+  const lain=acak(KATA.filter(x=>x.k!==w.k)).slice(0,2).map(x=>x.k);
+  return pilih({kemampuan:'kata',aktivitas:'Cocokkan gambar dan kata',petunjuk:'Pilih kata yang cocok dengan gambar.',suara:w.k,tampil:w.g,opsi:opsiTeks([w.k,...lain]),jawab:w.k,jawabTeks:w.k,kelas:'kata kolom',kunci:'Kata '+w.k,label:'Kata '+w.k});
+}
+function sk_susunKata(w){
+  return {jenis:'susun',kemampuan:'kata',aktivitas:'Susun huruf jadi kata',petunjuk:'Susun huruf menjadi kata yang sesuai gambar.',suara:w.k,tampil:w.g,
+    ubin:w.k.split(''),pemisah:'',jawab:w.k,jawabTeks:w.k,kunci:'Kata '+w.k,label:'Kata '+w.k};
+}
+function sk_mirip(w){
+  return pilih({kemampuan:'kata',aktivitas:'Pilih kata yang benar',petunjuk:'Dengarkan, lalu pilih kata yang benar. Hati-hati, hurufnya mirip!',suara:w.k,auto:true,opsi:opsiTeks([w.k,...w.mirip]),jawab:w.k,jawabTeks:w.k,kelas:'kata kolom',kunci:'Kata '+w.k,label:'Kata '+w.k});
+}
+function sk_dengarGambar(w){
+  const lain=acak(KATA.filter(x=>x.k!==w.k)).slice(0,2);
+  return pilih({kemampuan:'kata',aktivitas:'Dengar kata, pilih gambar',petunjuk:'Dengarkan kata, lalu pilih gambarnya.',suara:w.k,auto:true,opsi:[w,...lain].map(x=>({v:x.k,t:x.g})),jawab:w.k,jawabTeks:w.k,kelas:'gambar',kunci:'Kata '+w.k,label:'Kata '+w.k});
+}
+function sk_micKata(w){return {jenis:'baca',kemampuan:'kata',aktivitas:'Baca kata',petunjuk:'Bacalah kata ini dengan suara keras!',suara:w.k,target:w.k,evalTipe:'kata',tampil:w.g+'<div class="tampil teks">'+esc(w.k)+'</div>',kelasTampil:'',tampilTarget:w.k,kunci:'Kata '+w.k,label:'Kata '+w.k};}
+function sk_susunKalimat(k){
+  return {jenis:'susun',kemampuan:'kalimat',aktivitas:'Susun kata jadi kalimat',petunjuk:'Susun kata-kata menjadi kalimat yang benar.',suara:k.t,tampil:k.g,
+    ubin:k.t.split(' '),pemisah:' ',jawab:k.t,jawabTeks:k.t,kunci:'Kalimat: '+k.t,label:'Kalimat: '+k.t};
+}
+function sk_gambarKalimat(k){
+  const lain=acak(KAL.filter(x=>x.t!==k.t)).slice(0,2).map(x=>x.t);
+  return pilih({kemampuan:'kalimat',aktivitas:'Pilih kalimat sesuai gambar',petunjuk:'Pilih kalimat yang cocok dengan gambar.',suara:k.t,tampil:k.g,opsi:opsiTeks([k.t,...lain]),jawab:k.t,jawabTeks:k.t,kelas:'kolom',kunci:'Kalimat: '+k.t,label:'Kalimat: '+k.t});
+}
+function sk_micKalimat(k){return {jenis:'baca',kemampuan:'kalimat',aktivitas:'Baca kalimat',petunjuk:'Bacalah kalimat ini dengan suara keras!',suara:k.t,target:k.t,evalTipe:'kalimat',tampil:k.g+'<div class="tampil kal">'+esc(k.t)+'</div>',tampilTarget:k.t,kunci:'Kalimat: '+k.t,label:'Kalimat: '+k.t};}
+function sk_micCerita(c){return {jenis:'baca',kemampuan:'kalimat',aktivitas:'Baca cerita pendek',petunjuk:'Bacalah cerita pendek ini dengan suara keras!',suara:c.teks,target:c.teks,evalTipe:'kalimat',tampil:'<div class="tampil kal">'+esc(c.teks)+'</div>',tampilTarget:c.teks,kunci:'Cerita: '+c.judul,label:'Cerita: '+c.judul};}
+function sk_tanya(c,q){
+  return pilih({kemampuan:'kalimat',aktivitas:'Isi bacaan',petunjuk:q.q,suara:q.q,bacaan:c.teks,opsi:opsiTeks(q.o),jawab:q.j,jawabTeks:q.j,kelas:'kata',kunci:'Isi bacaan: '+q.q,label:'Isi bacaan: '+q.q});
+}
+
+function sesiLevel(L){
+  if(L===1){const h=acak(HURUF_MUDAH);return [sk_dengarHuruf(h[0]),sk_dengarHuruf(h[1]),sk_bd('b'),sk_bd('d'),sk_pq('p'),sk_pq('q'),sk_besarKecil(h[2]),sk_besarKecil(h[3]),sk_micHuruf(h[4]),sk_micHuruf(h[5])].map((x,i,a)=>i<4?x:x);}
+  if(L===2){
+    const cv=()=>[satu(KONS),satu(VOKAL)];const p=cv(),q=cv(),r=cv(),s=cv(),u=cv(),w=cv();
+    return [sk_dengarSuku(...p),sk_dengarSuku(...q),sk_gabung(...r),sk_gabung(...s),sk_pola('b',Math.floor(Math.random()*5)),sk_pola('m',Math.floor(Math.random()*5)),sk_susunSuku(...u),sk_susunSuku(...w),sk_micSuku(...cv()),sk_micSuku(...cv())];
+  }
+  if(L===3){
+    const w=acak(KATA);
+    return [sk_gambarKata(w[0]),sk_gambarKata(w[1]),sk_susunKata(w[2]),sk_susunKata(w[3]),sk_mirip(w[4]),sk_mirip(w[5]),sk_dengarGambar(w[0]),sk_dengarGambar(w[3]),sk_micKata(w[1]),sk_micKata(w[5])];
+  }
+  const k=acak(KAL),c=satu(CERITA),qs=acak(c.tanya);
+  return [sk_susunKalimat(k[0]),sk_susunKalimat(k[1]),sk_gambarKalimat(k[2]),sk_gambarKalimat(k[3]),sk_micKalimat(k[4]),sk_micKalimat(k[5]),sk_micCerita(c),sk_tanya(c,qs[0]),sk_tanya(c,qs[1]),sk_tanya(c,qs[2])];
+}
+function buatAsesmen(){            // 10 soal bertahap: huruf 3, suku 2, kata 3, kalimat 2
+  const w=acak(KATA),k=acak(KAL);
+  return [sk_bd(satu(['b','d'])),sk_pq(satu(['p','q'])),sk_micHuruf(satu(HURUF_MUDAH)),
+    sk_dengarSuku(satu(['b','m']),satu(VOKAL)),sk_gabung(satu(KONS),satu(VOKAL)),
+    sk_gambarKata(w[0]),sk_mirip(w[1]),sk_micKata(w[2]),
+    sk_susunKalimat(k[0]),sk_micKalimat(k[1])];
+}
+function buatEvaluasi(){            // 2 soal dari tiap level (1 pilihan/susun + 1 mikrofon)
+  const out=[];
+  for(let L=1;L<=4;L++){const s=sesiLevel(L);out.push(satu(s.filter(x=>x.jenis!=='baca')),satu(s.filter(x=>x.jenis==='baca')));}
+  return out;
+}
+
+/* ---------- Navigasi ---------- */
+function tampilLayar(html,kelas){app.innerHTML=html;window.scrollTo(0,0);}
+/* Tema: bila siswa belum memilih, biarkan CSS mengikuti sistem/host (tanpa atribut data-tema) */
+function temaTerapkan(){const r=document.documentElement;if(D.tema)r.dataset.tema=D.tema;else r.removeAttribute('data-tema');}
+function temaGelapAktif(){const r=document.documentElement;if(r.dataset.tema)return r.dataset.tema==='gelap';
+  if(r.dataset.theme)return r.dataset.theme==='dark';return !!(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches);}
+function modal(html,tengah){$('#modal').innerHTML=`<div class="modal-lapis" data-act="tutupLapis"><div class="sheet ${tengah?'tengah':''}" onclick="event.stopPropagation()">${html}</div></div>`;}
+function tutupModal(){$('#modal').innerHTML='';}
+function persenTotal(){return D.total?Math.round(100*D.benar/D.total):0;}
+function bintangHTML(n){return [1,2,3].map(i=>`<span class="${i<=n?'':'mati'}">★</span>`).join('');}
+
+/* ---------- 1. Sampul ---------- */
+function layarSampul(){
+  G.layar='sampul';Suara.henti();Mic.batal();
+  tampilLayar(`<div class="sampul">
+    <div class="bar-atas"><button class="ikon-btn" data-act="tema" aria-label="Ganti tema">🌓</button><button class="ikon-btn" data-act="bunyi" aria-label="Suara">${D.bunyi===false?'🔇':'🔊'}</button></div>
+    <div class="maskot-besar">${maskot('senang')}</div>
+    <h1>Petualangan Membaca</h1>
+    <p class="sub">Ayo Kenali Huruf, Baca Suku Kata, dan Susun Kata!</p>
+    <label for="nama">Nama panggilanmu</label>
+    <input id="nama" maxlength="20" autocomplete="off" placeholder="Tulis namamu di sini" value="${esc(D.nama)}">
+    <button class="btn hijau besar" data-act="mulai">MULAI MEMBACA</button>
+    <div class="catatan"><b>Privasi:</b> hanya nama panggilan yang dipakai. Nama, progres, dan hasil belajar disimpan di perangkat ini saja (tidak dikirim ke mana pun oleh aplikasi ini). Pengenal suara peramban (di Chrome) memproses audio lewat layanan peramban dan butuh internet.</div>
+    <div class="catatan"><b>Tentang penilaian suara:</b> mikrofon hanya mengubah suara menjadi teks, jadi yang dinilai adalah kecocokan huruf, kata, dan urutan — bukan kualitas pelafalan secara menyeluruh. Mikrofon butuh Chrome dengan HTTPS atau localhost.${Suara.catatan()?'<br><b>Suara contoh:</b> '+esc(Suara.catatan()):''}</div>
+  </div>`);
+}
+
+/* ---------- 2. Cerita pemantik ---------- */
+const PEMANTIK=['Ini bola Budi.','Budi bawa bola.','Bola Budi berwarna biru.'];
+function layarPemantik(){
+  G.layar='pemantik';
+  let idx=0;
+  const baris=PEMANTIK.map(k=>'<span class="baris-kal">'+k.split(' ').map(w=>`<span class="kt" data-act="katakata" data-i="${idx++}">${esc(w)}</span>`).join(' ')+'</span>').join('');
+  tampilLayar(`<div class="pemantik">
+    <div class="maskot-baris"><div id="maskotBox" style="width:90px;height:98px">${maskot('bicara')}</div><div class="gelembung">Halo, ${esc(D.nama)}! Ayo dengarkan cerita ini.</div></div>
+    <div class="cerita-kartu">
+      <div class="ilustrasi">👦 <svg viewBox="0 0 64 64" width="56" height="56" style="vertical-align:middle"><circle cx="32" cy="32" r="28" fill="#1cb0f6"/><path d="M8 28 Q32 40 56 28" stroke="#fff" stroke-width="4" fill="none"/><path d="M14 46 Q32 30 50 46" stroke="#fff" stroke-width="4" fill="none"/><circle cx="22" cy="20" r="5" fill="#fff" opacity=".5"/></svg></div>
+      <div class="teks-cerita" id="teksCerita">${baris}</div>
+      <button class="speaker" data-act="bacaPemantik" aria-label="Dengarkan cerita">🔊</button>
+      <p class="kecil-info">Tekan 🔊 untuk mendengar cerita. Tekan satu kata untuk mendengar kata itu.</p>
+      ${Suara.catatan()?'<p class="kecil-info">'+esc(Suara.catatan())+'</p>':''}
+    </div>
+    <button class="btn hijau besar" data-act="keAsesmen">LANJUT</button>
+  </div>`);
+}
+const Aksi={};
+Aksi.bacaPemantik=async()=>{
+  const kata=PEMANTIK.join(' ').split(' ');
+  const spans=[...document.querySelectorAll('#teksCerita .kt')];
+  await Suara.urut(kata.map(w=>w.replace(/[.,]/g,'')),i=>{spans.forEach((s,j)=>s.classList.toggle('sorot',j===i));});
+  spans.forEach(s=>s.classList.remove('sorot'));
+};
+Aksi.katakata=el=>{
+  const s=[...document.querySelectorAll('#teksCerita .kt')];s.forEach(x=>x.classList.remove('sorot'));el.classList.add('sorot');
+  Suara.ucap(el.textContent.replace(/[.,]/g,'')).then(()=>el.classList.remove('sorot'));
+};
+Aksi.keAsesmen=()=>{Suara.henti();mulaiKuis({mode:'asesmen',level:0,judul:'Asesmen Awal',items:buatAsesmen()});};
+
+/* ---------- Kuis: kerangka dan soal ---------- */
+function mulaiKuis(cfg){G.Q=Object.assign({idx:0,hasil:[],xp:0},cfg);tampilSoal();}
+const soal=()=>G.Q.items[G.Q.idx];
+
+function tampilSoal(){
+  const Q=G.Q,it=soal();Suara.henti();Mic.batal();
+  G.I={dipilih:null,dicek:false,urutan:[],salahBaca:0,gagal:0,selesai:false,fase:'awal',ok:null,panel:'',pesanTeknis:'',mendengar:false};
+  if(it.jenis==='pilih')it.opsi=acak(it.opsi);
+  if(it.jenis==='susun'){let u,tries=0;do{u=acak(it.ubin);tries++;}while(u.join(it.pemisah)===it.jawab&&tries<8&&u.length>1);it.ubin=u;}
+  G.layar='kuis';
+  tampilLayar(`<div class="kuis">
+    <div class="kuis-atas"><button class="x" data-act="keluarKuis" aria-label="Keluar">✕</button>
+      <div class="bar"><i id="barIsi" style="width:${Math.round(100*Q.idx/Q.items.length)}%"></i></div><div class="xp">⭐ ${D.xp}</div></div>
+    <div class="kuis-isi">
+      <div class="maskot-baris"><div id="maskotBox"></div><div class="gelembung"><span id="gteks"></span><button class="speaker mini" data-act="speaker" aria-label="Dengarkan">🔊</button></div></div>
+      <div id="area"></div>
+    </div>
+    <div class="kuis-bawah" id="bawah"></div>
+  </div>`);
+  setMaskot('bicara',it.petunjuk);renderArea();renderBawah();
+  if(it.auto)setTimeout(()=>{if(G.Q===Q&&soal()===it)Suara.ucap(it.suara);},450);   // soal "dengarkan" diputar otomatis
+}
+function setMaskot(eks,teks){const m=$('#maskotBox');if(m)m.innerHTML=maskot(eks);const g=$('#gteks');if(g&&teks!=null)g.textContent=teks;}
+
+function renderArea(){
+  const it=soal(),I=G.I,a=$('#area');if(!a)return;
+  let h='';
+  if(it.bacaan)h+=`<div class="bacaan"><span>${esc(it.bacaan)}</span><button class="speaker mini" data-act="bacaBacaan" aria-label="Dengarkan bacaan">🔊</button></div>`;
+  if(it.jenis==='pilih'){
+    if(it.tampil)h+=`<div class="tampil ${it.kelasTampil}">${it.tampil}</div>`;
+    h+=`<div class="opsi ${it.kelas}">`+it.opsi.map((o,i)=>{
+      let k='opsi-btn';
+      if(I.dicek){if(o.v===it.jawab)k+=' benar';else if(i===I.dipilih)k+=' salah';}else if(i===I.dipilih)k+=' dipilih';
+      return `<button class="${k}" data-act="pilih" data-i="${i}" ${I.dicek?'disabled':''}>${o.t}</button>`;}).join('')+'</div>';
+  }else if(it.jenis==='susun'){
+    if(it.tampil)h+=`<div class="tampil">${it.tampil}</div>`;
+    h+=`<div class="slot ${I.dicek?(I.ok?'benar':'salah'):''}">`+(I.urutan.length?I.urutan.map(i=>`<button class="ubin" data-act="lepas" data-i="${i}" ${I.dicek?'disabled':''}>${esc(it.ubin[i])}</button>`).join(''):'<span class="kecil-info">Tekan huruf/kata di bawah untuk menyusun</span>')+'</div>';
+    h+='<div class="bank">'+it.ubin.map((u,i)=>I.urutan.includes(i)?`<span class="ubin kosong">${esc(u)}</span>`:`<button class="ubin" data-act="ambil" data-i="${i}" ${I.dicek?'disabled':''}>${esc(u)}</button>`).join('')+'</div>';
+  }else{ // baca (mikrofon)
+    h+=`<div class="tampil ${it.kelasTampil}">${it.tampil}</div>`;
+    const diag=Mic.diagnosa();
+    const ketik=!Mic.didukung()||I.gagal>=KONFIG.GAGAL_MIC_MAKS||diag.ok===false;   // kolom ketik juga muncul bila halaman jelas tidak bisa memakai mikrofon
+    h+=`<div class="mic-kartu">
+      <button class="btn kecil biru" data-act="contoh">🔊 Dengar contoh</button>
+      ${Mic.didukung()?`<button class="mic-btn" id="micBtn" data-act="mic">🎤 MULAI BICARA</button>
+      <div class="gelombang" id="gel"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="status-mic" id="stMic"></div>`:`<div class="banner info" style="margin:0"><div class="teks">Mikrofon tidak tersedia di browser ini (butuh Chrome dengan HTTPS atau localhost). Ketik hasil bacaanmu di bawah.</div></div>`}
+      ${diag.info&&diag.ok!==true?`<div class="banner info" style="margin:0;width:100%"><div class="teks">${esc(diag.info)}</div></div>`:''}
+      <button class="btn kecil abu" data-act="panduanMic">❓ Mikrofon tidak jalan?</button>
+      <div id="panel" style="width:100%">${I.panel}</div>
+      ${ketik?`<div class="ketik"><label for="ketik">Ketik hasil bacaanmu (dinilai dengan aturan yang sama):</label><div class="ketik-baris"><input id="ketik" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ketik di sini"><button class="btn biru kecil" data-act="periksaKetik">PERIKSA</button></div></div>`:''}
+      <details class="info-suara"><summary>Info penilaian suara</summary>Pengenal suara hanya mengubah suara menjadi teks. Penilaian mengukur kecocokan huruf, kata, dan urutan — bukan kualitas pelafalan secara menyeluruh. Mikrofon butuh Chrome dengan HTTPS atau localhost.</details>
+    </div>`;
+  }
+  a.innerHTML=h;
+}
+function banner(jenis,judul,teks){return `<div class="banner ${jenis}"><div class="judul">${judul}</div>${teks?`<div class="teks">${teks}</div>`:''}</div>`;}
+function renderBawah(){
+  const it=soal(),I=G.I,b=$('#bawah');if(!b)return;
+  let h='';
+  if(it.jenis!=='baca'){
+    if(I.dicek){
+      h=I.ok?banner('benar','✓ '+I.pesan,'+'+KONFIG.XP_BENAR+' XP')
+            :banner('salah','✗ Belum tepat','Jawaban yang benar: <b>'+esc(it.jawabTeks)+'</b>');
+      h+=`<button class="btn ${I.ok?'hijau':'merah'} besar" data-act="lanjut">LANJUT</button>`;
+    }else{
+      const aktif=it.jenis==='pilih'?I.dipilih!=null:I.urutan.length>0;
+      h=`<div class="aksi-baris"><button class="btn abu" data-act="lewati">LEWATI</button><button class="btn hijau" data-act="periksa" ${aktif?'':'disabled'}>PERIKSA</button></div>`;
+    }
+  }else{
+    if(I.fase==='benar'){
+      h=banner('benar','✓ '+I.pesan,'+'+KONFIG.XP_BENAR+' XP')+`<button class="btn hijau besar" data-act="lanjut">LANJUT</button>`;
+    }else{
+      if(I.fase==='salah')h+=banner('salah','Ayo coba sekali lagi. Kamu pasti bisa!','Dengarkan contohnya, lalu bacalah lagi.');
+      if(I.fase==='teknis')h+=banner('info','Ups, ada masalah suara',esc(I.pesanTeknis)+' <b>(Ini tidak dihitung salah.)</b>');
+      h+=`<div class="aksi-baris"><button class="btn abu" data-act="lewati">LEWATI</button>`;
+      if(I.fase==='salah'&&I.salahBaca>=KONFIG.PERCOBAAN_SEBELUM_LANJUT)h+=`<button class="btn kuning" data-act="lanjutTanpaPoin">Lanjut (tanpa poin)</button>`;
+      h+='</div>';
+    }
+  }
+  b.innerHTML=h;
+}
+
+/* ---------- Pencatatan hasil ---------- */
+function catat(ok,tanpaPoin){
+  const Q=G.Q,it=soal();
+  Q.hasil[Q.idx]={kemampuan:it.kemampuan,kunci:it.kunci,label:it.label,ok,item:it};
+  if(ok===true&&!tanpaPoin){D.xp+=KONFIG.XP_BENAR;Q.xp+=KONFIG.XP_BENAR;}
+  if(ok!==null){
+    D.riwayat[it.kunci]={ok,label:it.label,kem:it.kemampuan,t:Date.now()};
+    if(Q.mode!=='remedial'){D.total++;if(ok)D.benar++;}
+    perbaruiStreak();
+  }
+  Simpan.simpan();
+}
+function lanjutSoal(){
+  const Q=G.Q;Suara.henti();Mic.batal();Q.idx++;
+  if(Q.idx>=Q.items.length)selesaiSesi();else tampilSoal();
+}
+
+/* ---------- Aksi kuis ---------- */
+Aksi.pilih=el=>{if(G.I.dicek)return;G.I.dipilih=+el.dataset.i;Bunyi.main('klik');renderArea();renderBawah();};
+Aksi.ambil=el=>{if(G.I.dicek)return;G.I.urutan.push(+el.dataset.i);Bunyi.main('klik');renderArea();renderBawah();};
+Aksi.lepas=el=>{if(G.I.dicek)return;G.I.urutan=G.I.urutan.filter(i=>i!==+el.dataset.i);renderArea();renderBawah();};
+Aksi.periksa=()=>{
+  const it=soal(),I=G.I;if(I.dicek)return;let ok;
+  if(it.jenis==='pilih'){if(I.dipilih==null)return;ok=it.opsi[I.dipilih].v===it.jawab;}
+  else{if(!I.urutan.length)return;ok=normalisasi(I.urutan.map(i=>it.ubin[i]).join(it.pemisah))===normalisasi(it.jawab);}
+  I.dicek=true;I.ok=ok;I.pesan=satu(PUJIAN);catat(ok);
+  Bunyi.main(ok?'benar':'salah');setMaskot(ok?'senang':'sedih',ok?I.pesan:'Tidak apa-apa, ayo semangat!');
+  renderArea();renderBawah();
+};
+Aksi.lanjut=()=>lanjutSoal();
+Aksi.lewati=()=>{if(G.I.selesai)return;catat(null);lanjutSoal();};     // dilewati: tidak dihitung salah
+Aksi.lanjutTanpaPoin=()=>{catat(false,true);lanjutSoal();};
+Aksi.speaker=()=>{Mic.aktif&&Mic.batal();Suara.ucap(soal().suara);};
+Aksi.bacaBacaan=()=>{const c=soal().bacaan;Suara.urut(c.split(/(?<=\.)\s+/));};
+Aksi.contoh=()=>{if(Mic.aktif)return;Suara.ucap(soal().suara);};
+Aksi.keluarKuis=()=>modal(`<h3>Keluar dari latihan?</h3><p class="kecil-info">Kemajuan sesi ini tidak disimpan.</p>
+  <button class="btn hijau besar" data-act="tutupModal">TETAP BELAJAR</button><button class="btn abu besar" data-act="yaKeluar">KELUAR</button>`,true);
+Aksi.yaKeluar=()=>{tutupModal();Suara.henti();Mic.batal();(G.Q&&G.Q.mode==='asesmen')?layarSampul():layarPeta();};
+Aksi.tutupModal=()=>tutupModal();
+Aksi.tutupLapis=el=>{if(el&&el.classList.contains('modal-lapis'))tutupModal();};
+
+/* ---------- Mikrofon di soal baca ---------- */
+function setMicUI(on){
+  G.I.mendengar=on;
+  const b=$('#micBtn'),g=$('#gel'),s=$('#stMic');
+  if(b){b.classList.toggle('aktif',on);b.textContent=on?'⏹ BERHENTI':'🎤 MULAI BICARA';}
+  if(g)g.classList.toggle('on',on);
+  if(s&&on)s.textContent='Sedang mendengarkan…';
+}
+Aksi.mic=()=>{
+  const I=G.I,it=soal();
+  if(Mic.aktif){Mic.henti();return;}                 // tombol berhenti: hasil tetap diproses
+  if(I.selesai)return;
+  Suara.henti();                                      // jangan sampai mikrofon mendengar suara contoh
+  /* Dimulai LANGSUNG dari klik (tanpa jeda): Chrome dan dikte Claude mensyaratkan gestur pengguna. */
+  Mic.mulai({
+    onMulai:()=>setMicUI(true),
+    onInterim:t=>{const s=$('#stMic');if(s)s.textContent='Sedang mendengarkan… “'+t+'”';},
+    onSelesai:res=>{setMicUI(false);const s=$('#stMic');if(s)s.textContent='';if(G.layar==='kuis'&&soal()===it)prosesMic(res);}
+  });
+  setMicUI(true);                                     // tampilkan segera, sebelum onstart tiba
+};
+Aksi.panduanMic=()=>{
+  const d=Mic.diagnosa();
+  modal(`<h3>🎤 Mikrofon tidak jalan?</h3>
+    ${d.info?`<div class="banner info" style="margin:0"><div class="teks">${esc(d.info)}</div></div>`:''}
+    <div class="kecil-info" style="line-height:1.7">
+    <b>1. Cek alamat halaman.</b> Harus diawali <b>https://</b> atau <b>http://localhost</b>. Alamat file lokal (file:// atau content://) sering ditolak Chrome.<br>
+    <b>2. Di komputer:</b> buka terminal di folder file ini, jalankan <code>python -m http.server 8000</code>, lalu buka <code>http://localhost:8000/petualangan-membaca.html</code> di Chrome.<br>
+    <b>3. Tanpa komputer:</b> unggah file ke hosting HTTPS gratis (Netlify Drop, GitHub Pages, atau Cloudflare Pages), lalu buka tautan https-nya di Chrome.<br>
+    <b>4. Izin mikrofon:</b> saat Chrome bertanya, pilih Izinkan. Jika sudah terlanjur ditolak, ketuk ikon gembok di kolom alamat → Izin → Mikrofon → Izinkan, lalu muat ulang.<br>
+    <b>5. Browser:</b> Chrome di Android atau komputer. Chrome di iPhone dan Safari belum mendukung pengenalan suara.<br>
+    <b>Sementara itu</b> kamu tetap bisa mengetik hasil bacaan di kolom ketik; penilaiannya sama persis.</div>
+    <button class="btn hijau besar" data-act="tutupModal">MENGERTI</button>`);
+};
+function prosesMic(res){
+  const it=soal();
+  if(!res.alternatif.length)return gagalTeknis(res.error||'empty');
+  const r=evaluate(it.target,res.alternatif,it.evalTipe);
+  if(r.teknis)return gagalTeknis('empty');
+  tanganiHasil(r);
+}
+function gagalTeknis(kode){                           // bukan salah baca -> tidak dihitung salah
+  const I=G.I;I.gagal++;I.fase='teknis';I.pesanTeknis=PESAN_TEKNIS[kode]||PESAN_TEKNIS.empty;
+  if(kode==='not-allowed'||kode==='service-not-allowed'||kode==='audio-capture'||kode==='unsupported'){
+    const d=Mic.diagnosa();I.pesanTeknis+=' '+(d.info||'Ketuk gembok di kolom alamat → Izin → Mikrofon → Izinkan, lalu muat ulang.')+' Ketuk "Mikrofon tidak jalan?" untuk panduan.';
+  }
+  I.panel='';renderArea();renderBawah();
+}
+Aksi.periksaKetik=()=>{
+  const it=soal(),v=($('#ketik')||{}).value||'';
+  if(!normalisasi(v)){const i=$('#ketik');if(i){i.classList.add('goyang');i.placeholder='Ketik dulu ya…';setTimeout(()=>i.classList.remove('goyang'),400);}return;}
+  const r=evaluate(it.target,[v],it.evalTipe);
+  if(r.teknis)return gagalTeknis('empty');
+  tanganiHasil(r);
+};
+function tanganiHasil(r){
+  const I=G.I,it=soal();
+  I.panel=panelHasil(r,it);
+  if(r.benar){
+    I.fase='benar';I.dicek=true;I.selesai=true;I.ok=true;I.pesan=satu(PUJIAN);catat(true);
+    Bunyi.main('benar');setMaskot('senang',I.pesan);
+  }else{
+    I.salahBaca++;I.fase='salah';
+    Bunyi.main('salah');setMaskot('sedih','Ayo coba sekali lagi. Kamu pasti bisa!');
+    setTimeout(()=>{if(G.I===I)Suara.ucap(it.suara);},700);     // putar contoh pelafalan
+  }
+  renderArea();renderBawah();
+}
+function htmlKataWarna(r){
+  return r.rinci.map(w=>{
+    switch(w.status){
+      case 'BENAR':return `<span class="kw ok">${esc(w.target)}</span>`;
+      case 'TERLEWAT':return `<span class="kw miss" title="terlewat">${esc(w.target)}<small>terlewat</small></span>`;
+      case 'TAMBAHAN':return `<span class="kw tambah">${esc(w.terdengar)}<small>tambahan</small></span>`;
+      case 'SALAH EJA':return `<span class="kw no">${esc(w.terdengar)}<small>salah eja → ${esc(w.target)}</small></span>`;
+      case 'DIGANTI KATA LAIN':return `<span class="kw no">${esc(w.terdengar)}<small>diganti → ${esc(w.target)}</small></span>`;
+      default:return `<span class="kw no">${esc(w.terdengar)}<small>seharusnya ${esc(w.target)}</small></span>`;
+    }}).join(' ');
+}
+function panelHasil(r,it){
+  const salah=r.rinci.filter(w=>w.status!=='BENAR'&&w.status!=='TAMBAHAN').map(w=>
+    w.status==='TERLEWAT'?`“${esc(w.target)}” terlewat`:`“${esc(w.terdengar)}” seharusnya “${esc(w.target)}”`);
+  return `<div class="panel-hasil">
+    <div class="baris"><b>Target:</b> ${esc(it.target)}</div>
+    <div class="baris"><b>Terdengar:</b> “${esc(r.terdengar)}”</div>
+    <div class="kata-warna">${htmlKataWarna(r)}</div>
+    ${!r.benar&&salah.length?`<div class="baris"><b>Bagian yang perlu diperbaiki:</b> ${salah.join('; ')}</div>`:''}
+    <div class="baris"><b>Skor:</b> ${r.skor}% &nbsp; <b>Status:</b> <span class="status ${r.benar?'benar':'belum'}">${r.benar?'BENAR':'BELUM SESUAI'}</span></div>
+  </div>`;
+}
+
+/* ---------- Selesai sesi ---------- */
+function simpanSesi(jenis,level,b,t){D.sesi.push({tgl:Date.now(),jenis,level,b,t});if(D.sesi.length>60)D.sesi=D.sesi.slice(-60);}
+function tandaiSelesai(L,b,t,bintang,sumber){
+  const lama=D.selesai[L];
+  D.selesai[L]={bintang:Math.max(lama?lama.bintang:0,bintang),persen:Math.max(lama?lama.persen:0,t?Math.round(100*b/t):0),sumber:sumber||'latihan'};
+  return !lama;
+}
+function selesaiSesi(){
+  const Q=G.Q,h=Q.hasil,b=h.filter(x=>x.ok===true).length,t=h.filter(x=>x.ok!==null).length;
+  const persen=t?Math.round(100*b/t):0,ok=lulus(b,t),bintang=bintangDari(b,t);
+  const salahItems=h.filter(x=>x.ok===false).map(x=>x.item).slice(0,KONFIG.MAKS_REMEDIAL);
+  perbaruiStreak();
+
+  if(Q.mode==='asesmen'){
+    const kem=hitungKemampuan(h),level=tentukanLevel(kem);
+    D.asesmen={tgl:Date.now(),kem,level};D.levelAwal=level;
+    for(let L=1;L<level;L++){const k=kem[URUTAN_KEMAMPUAN[L-1]];D.selesai[L]={bintang:bintangDari(k.b,k.t),persen:k.persen||0,sumber:'asesmen'};}
+    simpanSesi('asesmen',0,b,t);Simpan.simpan();return layarHasilAsesmen();
+  }
+
+  let R={mode:Q.mode,level:Q.level,persen,b,t,bintang,ok,xp:Q.xp,tombol:[],judul:'',pesan:''};
+  const nm=LEVEL[Q.level].nama;
+  if(Q.mode==='latihan'||Q.mode==='evaluasi'){
+    const eval_=Q.mode==='evaluasi';
+    if(eval_)D.evalAkhir={persen,b,t,bintang,tgl:Date.now(),selesai:ok};
+    if(ok){
+      if(!eval_){const baru=tandaiSelesai(Q.level,b,t,bintang);if(baru){D.xp+=KONFIG.XP_LEVEL;R.xp+=KONFIG.XP_LEVEL;}}
+      R.judul=eval_?'Evaluasi Akhir selesai!':'Level selesai!';R.pesan=nm+' — hebat sekali!';
+      R.tombol=eval_?[{t:'LIHAT LAPORAN',a:'laporan',k:'hijau'},{t:'KE PETA BELAJAR',a:'peta',k:'abu'}]:[{t:'LANJUT',a:'peta',k:'hijau'},{t:'ULANGI LATIHAN',a:'ulangiNode',k:'abu',d:Q.level}];
+    }else{
+      R.judul='Hampir berhasil!';
+      if(salahItems.length){
+        R.pesan='Nilaimu belum mencapai KKM ('+KONFIG.KKM+'). Yuk, remedial dulu: '+salahItems.length+' soal yang tadi belum tepat.';
+        G.sisaRemedial={level:Q.level,asal:Q.mode,items:salahItems,persenAwal:persen,bintangAwal:bintang};
+        R.tombol=[{t:'MULAI REMEDIAL',a:'mulaiRemedial',k:'hijau'}];
+      }else{R.pesan='Banyak soal yang dilewati, jadi nilai belum cukup. Yuk, ulangi latihannya.';R.tombol=[{t:'ULANGI LATIHAN',a:'ulangiNode',k:'hijau',d:Q.level}];}
+    }
+  }else{ // remedial
+    if(ok){
+      const bAwal=Q.bintangAwal||1;
+      if(Q.asal==='evaluasi'){if(D.evalAkhir)D.evalAkhir.selesai=true;}
+      else{const baru=tandaiSelesai(Q.level,b,t,bAwal);if(baru){D.xp+=KONFIG.XP_LEVEL;R.xp+=KONFIG.XP_LEVEL;}}
+      R.judul='Remedial selesai!';R.pesan='Kamu sudah memperbaiki bagian yang tadi belum tepat. Hebat!';
+      R.tombol=Q.asal==='evaluasi'?[{t:'LIHAT LAPORAN',a:'laporan',k:'hijau'},{t:'KE PETA BELAJAR',a:'peta',k:'abu'}]:[{t:'LANJUT',a:'peta',k:'hijau'}];
+    }else{
+      R.judul='Ayo coba lagi!';R.pesan='Remedial belum mencapai KKM ('+KONFIG.KKM+'). Latihan lagi akan membuatmu makin lancar.';
+      if(salahItems.length)G.sisaRemedial={level:Q.level,asal:Q.asal,items:salahItems,persenAwal:Q.persenAwal,bintangAwal:Q.bintangAwal};
+      R.tombol=[...(salahItems.length?[{t:'REMEDIAL LAGI',a:'mulaiRemedial',k:'hijau'}]:[]),{t:'ULANGI LATIHAN',a:'ulangiNode',k:'abu',d:Q.asal==='evaluasi'?5:Q.level}];
+    }
+  }
+  R.eks=ok?(bintang===3?'menang':'senang'):'sedih';
+  simpanSesi(Q.mode,Q.level,b,t);Simpan.simpan();layarHasilSesi(R);
+}
+
+/* ---------- 4. Hasil asesmen ---------- */
+function layarHasilAsesmen(){
+  G.layar='hasilAsesmen';const A=D.asesmen;
+  tampilLayar(`<div class="hasil">
+    <div class="maskot-besar">${maskot('menang')}</div>
+    <h2>Petualangan awal selesai!</h2>
+    <p>Kamu sudah menyelesaikan petualangan awal! Yuk, kita lanjutkan ke latihan yang sesuai dengan kemampuanmu.</p>
+    <div class="kartu">${URUTAN_KEMAMPUAN.map(k=>{const x=A.kem[k];return `<div class="kem-baris" style="margin:8px 0"><span>${KEM_NAMA[k]}</span><div class="bar-h"><i class="${x.lulus?'':'no'}" style="width:${x.persen||0}%"></i></div><b>${x.persen===null?'–':x.persen+'%'}</b></div>`;}).join('')}
+      <p class="kecil-info" style="margin:6px 0 0">KKM = ${KONFIG.KKM}%. Soal yang dilewati tidak dihitung.</p></div>
+    <div class="level-kartu"><div>Levelmu sekarang</div><div class="besar">Level ${A.level} — ${LEVEL[A.level].nama}</div></div>
+    <button class="btn hijau besar" data-act="peta">Lanjut ke Level Saya</button>
+  </div>`);
+  Bunyi.main('menang');konfeti();
+}
+
+/* ---------- Hasil sesi ---------- */
+function layarHasilSesi(R){
+  G.layar='hasilSesi';
+  tampilLayar(`<div class="hasil">
+    <div class="maskot-besar">${maskot(R.eks)}</div>
+    <h2>${esc(R.judul)}</h2>
+    <div class="bintang">${bintangHTML(R.ok?R.bintang:(R.mode==='remedial'?0:1))}</div>
+    <div class="kartu"><div style="font-size:2rem;font-weight:900">${R.persen}%</div>
+      <div>${R.b} dari ${R.t} soal benar &nbsp;•&nbsp; +${R.xp} XP</div>
+      <p class="kecil-info" style="margin:8px 0 0">${esc(R.pesan)}</p></div>
+    <div class="tombol-kolom">${R.tombol.map(x=>`<button class="btn ${x.k} besar" data-act="${x.a}" ${x.d!=null?`data-n="${x.d}"`:''}>${x.t}</button>`).join('')}</div>
+  </div>`);
+  if(R.ok){Bunyi.main('menang');konfeti();}else Bunyi.main('salah');
+}
+Aksi.mulaiRemedial=()=>{const s=G.sisaRemedial;if(!s)return layarPeta();
+  mulaiKuis({mode:'remedial',level:s.level,asal:s.asal,persenAwal:s.persenAwal,bintangAwal:s.bintangAwal,judul:'Remedial',items:s.items.slice(0,KONFIG.MAKS_REMEDIAL)});};
+Aksi.ulangiNode=el=>mulaiNode(+(el&&el.dataset.n)||levelSekarang());
+
+/* ---------- 5. Peta belajar ---------- */
+function levelSekarang(){for(let L=1;L<=4;L++)if(!D.selesai[L])return L;return 4;}
+function statusNode(n){
+  const S=D.levelAwal||1;
+  if(n<=4){
+    if(D.selesai[n]){return 'selesai';}
+    const buka=n===1||D.selesai[n-1];
+    return buka?'sekarang':'kunci';
+  }
+  if(D.evalAkhir&&D.evalAkhir.selesai)return 'selesai';
+  if(D.selesai[4])return 'sekarang';
+  return S===4?'terbuka':'kunci';
+}
+function layarPeta(){
+  G.layar='peta';Suara.henti();Mic.batal();
+  const offs=['-46px','24px','58px','12px','-40px'];
+  let h=`<div class="peta-atas"><span class="nama">🦉 ${esc(D.nama)}</span><span class="stat">⭐ ${D.xp}</span><span class="stat">🔥 ${D.streak.jumlah||0}</span>
+    <button class="ikon-btn" data-act="laporan" aria-label="Laporan">📋</button><button class="ikon-btn" data-act="tema" aria-label="Tema">🌓</button><button class="ikon-btn" data-act="bunyi" aria-label="Suara">${D.bunyi===false?'🔇':'🔊'}</button></div>
+    <div class="jalur">`;
+  for(let n=1;n<=5;n++){
+    const st=statusNode(n),L=LEVEL[n],sel=n<=4?D.selesai[n]:(D.evalAkhir&&D.evalAkhir.selesai?D.evalAkhir:null);
+    const ikon=st==='selesai'?'✓':st==='kunci'?'🔒':L.ikon;
+    h+=`<div class="node-baris" style="--g:${offs[n-1]}">${st==='sekarang'?'<div class="mulai-balon">MULAI</div>':''}
+      <button class="node ${st}" data-act="node" data-n="${n}" aria-label="${esc(L.nama)}">${ikon}</button>
+      <div class="node-label">${n<=4?'Level '+n+' · ':''}${esc(L.nama)}${sel?`<div class="bintang-kecil">${bintangHTML(sel.bintang||0)}</div>`:''}${n<(D.levelAwal||1)&&sel?'<small>dikuasai · ulangan opsional</small>':''}</div></div>`;
+  }
+  h+=`</div>`;
+  tampilLayar(h);
+}
+Aksi.node=el=>{
+  const n=+el.dataset.n,st=statusNode(n),L=LEVEL[n];let info='',btn='';
+  if(st==='kunci')info=n===5?'Selesaikan Level 4 dulu untuk membuka Evaluasi Akhir.':'Selesaikan level sebelumnya dulu ya.';
+  else if(st==='selesai')info=n<(D.levelAwal||1)?'Kamu sudah menguasai level ini. Boleh ulangan opsional untuk menambah bintang.':'Sudah selesai. Mau mengulang untuk menambah bintang?';
+  else info=n===5&&!D.selesai[4]?'Kamu sudah sangat mahir! Evaluasi Akhir langsung terbuka.':'Siap berlatih?';
+  btn=st==='kunci'?`<button class="btn besar" disabled>TERKUNCI</button>`:`<button class="btn hijau besar" data-act="mulaiNode" data-n="${n}">${st==='selesai'?'ULANGI':'MULAI'}</button>`;
+  modal(`<h3>${L.ikon} ${n<=4?'Level '+n+' · ':''}${esc(L.nama)}</h3><p>${esc(L.desk)}</p><p class="kecil-info">${info}</p>${btn}`);
+};
+Aksi.mulaiNode=el=>{tutupModal();mulaiNode(+el.dataset.n);};
+function mulaiNode(n){
+  if(n===5)mulaiKuis({mode:'evaluasi',level:5,judul:'Evaluasi Akhir',items:buatEvaluasi()});
+  else mulaiKuis({mode:'latihan',level:n,judul:LEVEL[n].nama,items:sesiLevel(n)});
+}
+Aksi.peta=()=>layarPeta();
+Aksi.keLevelku=()=>layarPeta();
+
+/* ---------- 7. Laporan (kertas tempel) ---------- */
+function layarLaporan(){
+  G.layar='laporan';Suara.henti();Mic.batal();
+  const tertinggi=[1,2,3,4].filter(L=>D.selesai[L]).pop();
+  const ev=D.evalAkhir,rw=Object.values(D.riwayat);
+  const kuasai=rw.filter(x=>x.ok).sort((a,b)=>a.label.localeCompare(b.label)),latih=rw.filter(x=>!x.ok).sort((a,b)=>a.label.localeCompare(b.label));
+  const chips=a=>a.length?a.map(x=>`<span class="chip">${esc(x.label)}</span>`).join(''):'<span class="kecil-info">Belum ada.</span>';
+  tampilLayar(`<div class="laporan">
+    <div style="text-align:center"><div style="width:90px;height:98px;margin:0 auto">${maskot('senang')}</div><h2>Laporan Belajar</h2></div>
+    <div class="tempel k1"><h3>👤 Nama</h3><div class="nilai">${esc(D.nama||'-')}</div></div>
+    <div class="tempel k2"><h3>🚩 Level awal</h3><div class="nilai">${D.levelAwal?'Level '+D.levelAwal+' · '+LEVEL[D.levelAwal].nama:'Belum asesmen'}</div>
+      <h3 style="margin-top:10px">🏅 Level tertinggi selesai</h3><div class="nilai">${tertinggi?'Level '+tertinggi+' · '+LEVEL[tertinggi].nama:'Belum ada'}</div></div>
+    <div class="tempel k3"><h3>✅ Soal benar</h3><div class="nilai">${D.benar} dari ${D.total}</div>
+      <h3 style="margin-top:10px">🎯 Ketepatan</h3><div class="nilai">${persenTotal()}%</div>
+      <h3 style="margin-top:10px">🏆 Evaluasi Akhir</h3><div class="nilai">${ev?ev.persen+'% <span class="bintang-kecil">'+bintangHTML(ev.bintang)+'</span>'+(ev.selesai?'':' <small>(perlu remedial)</small>'):'Belum dikerjakan'}</div></div>
+    <div class="tempel k4"><h3>🌟 Sudah dikuasai</h3>${chips(kuasai)}</div>
+    <div class="tempel k2"><h3>💪 Perlu dilatih</h3>${chips(latih)}<p class="kecil-info" style="margin:6px 0 0">Berdasarkan hasil terakhir tiap soal.</p></div>
+    <div class="tombol-kolom">
+      <button class="btn hijau besar" data-act="ulangiLatihan">Ulangi Latihan</button>
+      <button class="btn biru besar" data-act="hasilBelajar">Lihat Hasil Belajar</button>
+      <button class="btn abu besar" data-act="utama">Kembali ke Halaman Utama</button>
+      <button class="btn merah besar" data-act="hapus">Hapus Data</button>
+    </div></div>`);
+}
+Aksi.laporan=()=>layarLaporan();
+Aksi.ulangiLatihan=()=>{if(!D.levelAwal)return layarPemantik();mulaiNode(levelSekarang());};
+Aksi.utama=()=>layarSampul();
+Aksi.hapus=()=>modal(`<h3>Hapus semua data?</h3><p class="kecil-info">Nama, progres, hasil asesmen, dan riwayat di perangkat ini akan dihapus. Tindakan ini tidak bisa dibatalkan.</p>
+  <button class="btn merah besar" data-act="yaHapus">YA, HAPUS</button><button class="btn abu besar" data-act="tutupModal">BATAL</button>`,true);
+Aksi.yaHapus=()=>{tutupModal();Simpan.hapus();temaTerapkan();layarSampul();};
+Aksi.hasilBelajar=()=>{
+  G.layar='hasilBelajar';const A=D.asesmen;
+  const jn={asesmen:'Asesmen awal',latihan:'Latihan',remedial:'Remedial',evaluasi:'Evaluasi akhir'};
+  tampilLayar(`<div class="laporan"><h2 style="text-align:center">Hasil Belajar</h2>
+    <div class="kartu"><h3>Hasil asesmen awal</h3>${A?URUTAN_KEMAMPUAN.map(k=>{const x=A.kem[k];return `<div class="kem-baris" style="margin:8px 0"><span>${KEM_NAMA[k]}</span><div class="bar-h"><i class="${x.lulus?'':'no'}" style="width:${x.persen||0}%"></i></div><b>${x.persen===null?'–':x.persen+'%'}</b></div>`;}).join(''):'<p class="kecil-info">Belum ada.</p>'}</div>
+    <div class="kartu"><h3>Riwayat sesi</h3>${D.sesi.length?'<table class="uji"><tr><th>Tanggal</th><th>Jenis</th><th>Benar</th></tr>'+D.sesi.slice().reverse().map(s=>`<tr><td>${new Date(s.tgl).toLocaleString('id-ID',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})}</td><td>${jn[s.jenis]||s.jenis}${s.level?' (L'+s.level+')':''}</td><td>${s.b}/${s.t}${s.t?' · '+Math.round(100*s.b/s.t)+'%':''}</td></tr>`).join('')+'</table>':'<p class="kecil-info">Belum ada.</p>'}</div>
+    <button class="btn abu besar" data-act="laporan">KEMBALI KE LAPORAN</button></div>`);
+};
+
+/* ---------- Sampul: aksi ---------- */
+Aksi.mulai=()=>{
+  const i=$('#nama'),v=(i.value||'').trim();
+  if(!v){i.classList.add('goyang');i.placeholder='Tulis namamu dulu ya!';i.focus();setTimeout(()=>i.classList.remove('goyang'),400);return;}
+  D.nama=v;Simpan.simpan();
+  if(D.levelAwal)layarPeta();else layarPemantik();
+};
+Aksi.tema=()=>{D.tema=temaGelapAktif()?'terang':'gelap';Simpan.simpan();temaTerapkan();};
+Aksi.bunyi=()=>{D.bunyi=D.bunyi===false;Simpan.simpan();if(G.layar==='sampul')layarSampul();else if(G.layar==='peta')layarPeta();};
+
+/* ---------- 8. Halaman uji (#uji) ---------- */
+function layarUji(){
+  G.layar='uji';Suara.henti();Mic.batal();
+  const hasil=jalankanUji(),semua=hasil.every(x=>x.lulus);
+  const vs=Suara.didukung?speechSynthesis.getVoices():[];
+  tampilLayar(`<div class="uji-halaman">
+    <h2>Halaman Uji evaluate()</h2>
+    <div class="kartu"><b>Hasil keseluruhan: <span class="${semua?'lulus':'gagal'}">${semua?'LULUS':'GAGAL'}</span></b> (${hasil.filter(x=>x.lulus).length}/${hasil.length})
+    <table class="uji"><tr><th>Kasus</th><th>Hasil</th></tr>${hasil.map(x=>`<tr><td>${esc(x.nama)}<br><code>${esc(x.ket)}</code></td><td class="${x.lulus?'lulus':'gagal'}">${x.lulus?'LULUS':'GAGAL'}</td></tr>`).join('')}</table></div>
+    <div class="kartu"><h3>Lingkungan perangkat</h3>
+      <p class="kecil-info">Pengenalan suara: <b>${Mic.didukung()?'didukung':'tidak didukung'}</b> • Konteks aman (HTTPS/localhost): <b>${window.isSecureContext?'ya':'tidak'}</b> • Alamat: <b>${esc(location.protocol+'//'+(location.hostname||''))}</b> • Dikte Claude: <b>${Mic.dikt?'tersedia':'tidak'}</b><br>
+      Diagnosa: <b>${esc(Mic.diagnosa().info||'siap')}</b><br>
+      Suara contoh: <b>${Suara.didukung?'didukung':'tidak didukung'}</b> • Jumlah suara: <b>${vs.length}</b> • Suara Indonesia: <b>${Suara.voice?esc(Suara.voice.name):'tidak ditemukan'}</b></p></div>
+    <div class="kartu"><h3>Uji manual dengan mikrofon sungguhan</h3>
+      <p class="kecil-info">Bagian ini tidak bisa diuji otomatis: pengenalan suara asli butuh mikrofon, izin pengguna, dan internet. Coba sendiri di sini.</p>
+      <div class="ketik-baris" style="margin:8px 0"><select id="ujiTipe" style="font:inherit;padding:8px;border-radius:10px"><option value="huruf">huruf</option><option value="suku">suku kata</option><option value="kata" selected>kata</option><option value="kalimat">kalimat</option></select>
+      <input id="ujiTarget" value="bola" style="flex:1;font:inherit;padding:8px;border-radius:10px;border:2px solid var(--garis);background:var(--bg);color:var(--teks);min-width:0"></div>
+      <div class="aksi-baris"><button class="btn biru kecil" data-act="ujiDengar">🔊 Dengar contoh</button><button class="btn hijau kecil" data-act="ujiMic">🎤 Uji mikrofon</button></div>
+      <div id="ujiHasil" style="margin-top:10px"></div></div>
+    <button class="btn abu besar" data-act="utama">KEMBALI</button></div>`);
+}
+Aksi.ujiDengar=()=>{const t=$('#ujiTarget').value,tp=$('#ujiTipe').value;Suara.ucap(tp==='huruf'&&NAMA_HURUF[normalisasi(t)]?NAMA_HURUF[normalisasi(t)]:t);};
+Aksi.ujiMic=()=>{
+  const out=$('#ujiHasil');if(Mic.aktif){Mic.henti();return;}
+  const t=$('#ujiTarget').value,tp=$('#ujiTipe').value;Suara.henti();
+  out.innerHTML='<p class="kecil-info">Sedang mendengarkan… (tekan tombol lagi untuk berhenti)</p>';
+  Mic.mulai({onInterim:x=>{out.innerHTML='<p class="kecil-info">Sedang mendengarkan… “'+esc(x)+'”</p>';},
+    onSelesai:res=>{
+      if(!res.alternatif.length){out.innerHTML=`<div class="banner info"><div class="teks"><b>Kegagalan teknis:</b> ${esc(PESAN_TEKNIS[res.error]||PESAN_TEKNIS.empty)} (${esc(res.error||'empty')})</div></div>`;return;}
+      const r=evaluate(t,res.alternatif,tp);
+      out.innerHTML=`<p class="kecil-info">Alternatif dari mikrofon: ${res.alternatif.map(a=>'“'+esc(a)+'”').join(', ')}</p>`+panelHasil(r,{target:t});
+    }});
+};
+
+/* ---------- Pengikat peristiwa & awal ---------- */
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-act]');if(!el||el.disabled)return;
+  const f=Aksi[el.dataset.act];if(f){Bunyi.buka();f(el,e);}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='ketik')Aksi.periksaKetik();else if(e.key==='Enter'&&e.target.id==='nama')Aksi.mulai();});
+function awal(){if(location.hash==='#uji')layarUji();else layarSampul();}
+window.addEventListener('hashchange',awal);
+/* Bila dibuka sebagai artifact Claude di Chrome, dikte Claude tersedia sebagai pengganti mikrofon browser */
+try{if(window.claude&&typeof window.claude.use==='function')window.claude.use('dictation').then(d=>{Mic.dikt=d||null;}).catch(()=>{});}catch(e){}
+Simpan.muat();temaTerapkan();Suara.muat();awal();
+</script>
+
+</body></html>
